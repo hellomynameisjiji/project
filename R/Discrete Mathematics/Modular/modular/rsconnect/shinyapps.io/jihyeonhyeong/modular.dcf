@@ -1,0 +1,13 @@
+name: modular
+title: modular
+username:
+account: jihyeonhyeong
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2626474
+bundleId: 3453297
+url: https://jihyeonhyeong.shinyapps.io/modular/
+when: 1596085036.66731
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Untitled.R

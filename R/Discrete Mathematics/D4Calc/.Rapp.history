@@ -1,0 +1,3081 @@
+summary(m_multi2_2_2)
+summary(m_multi2_2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_r)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+axis(2)
+abline(h=0,col=2)
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2_2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2_2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[3,3]*x^4+vcov(m_multi2_2)[3,2]*2*x^3+vcov(m_multi2_2)[2,2]*x^2+#
+vcov(m_multi2_2)[3,3]*x0^4+vcov(m_multi2_2)[3,2]*2*x0^3+vcov(m_multi2_2)[2,2]*x0^2-#
+2*(vcov(m_multi2_2)[3,3]*x^2*x0^2+vcov(m_multi2_2)[2,2]*x*x0+vcov(m_multi2_2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2_2)[32:31]+coef(m_multi2_2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2_2)[3,3]+vcov(m_multi2_2)[32,32]+2*vcov(m_multi2_2)[3,32]#
+fuck_main<-vcov(m_multi2_2)[2,2]+vcov(m_multi2_2)[31,31]+2*vcov(m_multi2_2)[2,31]#
+fuck_cov<-vcov(m_multi2_2)[3,2]+vcov(m_multi2_2)[3,31]+vcov(m_multi2_2)[32,2]+vcov(m_multi2_2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_r)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_r))#
+cbind(1:41,coef(m_multi2_r)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_r)[n1]+coef(m_multi2_r)[n2]#
+se0<-diag(vcov(m_multi2_r))[n1]+diag(vcov(m_multi2_r))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_r)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_r)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)#
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2_2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2_2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[3,3]*x^4+vcov(m_multi2_2)[3,2]*2*x^3+vcov(m_multi2_2)[2,2]*x^2+#
+vcov(m_multi2_2)[3,3]*x0^4+vcov(m_multi2_2)[3,2]*2*x0^3+vcov(m_multi2_2)[2,2]*x0^2-#
+2*(vcov(m_multi2_2)[3,3]*x^2*x0^2+vcov(m_multi2_2)[2,2]*x*x0+vcov(m_multi2_2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2_2)[32:31]+coef(m_multi2_2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2_2)[3,3]+vcov(m_multi2_2)[32,32]+2*vcov(m_multi2_2)[3,32]#
+fuck_main<-vcov(m_multi2_2)[2,2]+vcov(m_multi2_2)[31,31]+2*vcov(m_multi2_2)[2,31]#
+fuck_cov<-vcov(m_multi2_2)[3,2]+vcov(m_multi2_2)[3,31]+vcov(m_multi2_2)[32,2]+vcov(m_multi2_2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+summary(m_multi2_2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])
+plot(x,EV,type="l",col=1)
+abline(h=0,col=2)
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.56*SE,EV+2.56*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.645*SE,EV+1.645*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.326*SE,EV+2.326*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.326*SE,EV+2.326*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.567*SE,EV+2.567*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.567*SE,EV+2.567*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.326*SE,EV+2.326*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af_2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.6*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.6*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+summary(m_multi2_2)
+m_multi2_2<-glm(sum~(mc_rank_rate2+mc_sq_rank_rate2+new_freq+log(freq_freq+1)+log(recency+1)+log(wratio*100+1)+log(first_time2)+current+google+log(new+1)+game_time3)*update_yn+as.factor(title), family="binomial"(link="probit"),multi5)
+summary(m_multi2_2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_r)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2_r.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Random Model Graph ###
+str(summary(m_multi2_r))#
+length(summary(m_multi2_r)[[10]][1:41])#
+cbind(1:41,summary(m_multi2_r)[[10]][1:41]) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-summary(m_multi2_r)[[10]][n1]+summary(m_multi2_r)[[10]][n2]#
+se0<-diag(vcov(m_multi2_r))[n1]+diag(vcov(m_multi2_r))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_r)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2_r.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "99% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "99% CI"), lty=1:2)
+install.packages('rsconnect')
+library(rsconnect)#
+rsconnect::deployApp('path/to/your/app')
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+rsconnect::setAccountInfo(name="<ACCOUNT>", token="<TOKEN>", secret="<SECRET>")
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+library(rsconnect)
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+rsconnect::setAccountInfo
+rsconnect::setAccountInfo(name='jihyeonhyeong',#
+			  token='0C17F16C75FCAEB7B057D9E361586951',#
+			  secret='<SECRET>')
+)
+rsconnect::setAccountInfo(name='jihyeonhyeong',#
+			  token='0C17F16C75FCAEB7B057D9E361586951',#
+			  secret='<SECRET>')
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+## ui.R#
+#
+library(shiny)#
+#
+shinyUI(fluidPage(#
+#
+  # Application title#
+  titlePanel("Old Faithful Geyser Data"),#
+#
+  # Sidebar with a slider input for number of bins#
+  sidebarLayout(#
+    sidebarPanel(#
+      sliderInput("bins",#
+                  "Number of bins:",#
+                  min = 1,#
+                  max = 50,#
+                  value = 30)#
+    ),#
+#
+    # Show a plot of the generated distribution#
+    mainPanel(#
+      plotOutput("distPlot")#
+    )#
+  )#
+))#
+#
+## server.R#
+#
+library(shiny)#
+#
+shinyServer(function(input, output) {#
+#
+  output$distPlot <- renderPlot({#
+#
+    # generate bins based on input$bins from ui.R#
+    x    <- faithful[, 2]#
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)#
+#
+    # draw the histogram with the specified number of bins#
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')#
+#
+  })#
+#
+})
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+install.packages('installr')#
+#
+library(installr)#
+#
+updateR()
+install.packages('installr')
+install.packages('installr')#
+#
+library(installr)#
+#
+updateR()
+updateR()
+install.packages('installer')
+install.packages('installr')
+load('/Volumes/jetDrive/2019-12-06 Final Model')
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+results
+dev.new()
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+length(coef(m_single))
+cbind(1:27,coef(m_single))
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13:27)#
+#
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+n1<-1:12
+n2<-c(13:27)
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?
+n2<-c(13, 17:27)
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+summary(m_single)
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+-.487+.268
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(32,31,13)])
+plot(x,EV,type="l",col=1)
+abline(h=0,col=2)
+SE<-sqrt(vcov(m_single)[32,32]*x^4+vcov(m_single)[31,31]*x^2+vcov(m_single)[13,13]+
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_single)[17,17]*x^4+vcov(m_single)[16,16]*x^2+vcov(m_single)[13,13]+#
+2*(vcov(m_single)[17,16]*x^3+vcov(m_single)[17,13]*x^2+vcov(m_single)[16,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(17,16,13)])
+SE<-sqrt(vcov(m_single)[17,17]*x^4+vcov(m_single)[16,16]*x^2+vcov(m_single)[13,13]+
+2*(vcov(m_single)[17,16]*x^3+vcov(m_single)[17,13]*x^2+vcov(m_single)[16,13]*x))
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+results
+length(coef(m_single))#
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13, 17:27)#
+#
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+length(coef(m_single))
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?
+est<-coef(m_single)[n1]+coef(m_single)[n2]
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))
+cbind(est,se,t,p)
+summary(m_single)
+.027/(.251*2)
+#This should work for any set of characters#
+library(stringr)#
+Perm.apply <- function(x,perm){#
+  #If x is not in the permutation, nothing happens#
+  if (!str_detect(perm,x))#
+    return(x)#
+  #Otherwise locate it and find the next symbol#
+  pos <- str_locate(perm,x)#
+  #To extract a character, we get a one-character substring#
+  nextch <- str_sub(perm,pos+1,pos+1)#
+  #If it's numeric, we are done#
+  if (nextch != ")")#
+    return(nextch)#
+  #Otherwise back up to find the number at the start of the cycle#
+  while(str_sub(perm,pos-1,pos-1) != "(")#
+    pos <- pos-1#
+  return (str_sub(perm,pos,pos))#
+}#
+#Perm.apply("5",("(13)(245)"))#
+#Converts a vector of functtion values to cycle notation#
+#This is specific to permutations of the digits 1 through 9#
+#It will be reused in other apps#
+Perm.cycle.convert <- function(fval){#
+#We build the answer as a vector of characters#
+  cycles <- character(0)  #empty vector#
+  for (nextstart in c("1","2","3","4","5","6","7","8")) {#
+    m <- as.numeric(nextstart)  #convert to integer index#
+    if (m > length(fval)) break#
+    #If the symbol is unchanged or is already in a cycle, there is nothing to do#
+    if ((fval[m] == nextstart) || (nextstart %in% cycles)) next#
+    #Otherwise keep tracing through the cycle until we find the end#
+    nextch <- fval[m]#
+    cycles <- c(cycles,"(",nextstart,nextch) #start a new cycle#
+    nextch <- fval[as.numeric(nextch)]#
+    while (nextch != nextstart){#
+      cycles <- c(cycles,nextch)#
+      nextch <- fval[as.numeric(nextch)]#
+    }#
+    cycles <- c(cycles, ")")   #close the cycle#
+  }#
+  #Collapse the vector of cycles into a string    #
+  return(paste(cycles, sep = "", collapse=""))#
+}#
+#Perm.cycle.convert(c("2","4","3","1"))#
+#Compute the product ab of two permutations of the symbols "1" through "9"#
+Perm.multiply <- function(a,b){#
+  if (a == "I") return(b)#
+  if (b == "I") return(a)#
+  #Make a vector of the function values#
+  fval <- character(0)#
+  for (i in c("1","2","3","4","5","6","7","8","9")) {#
+    fval <- c(fval, Perm.apply(Perm.apply(i,b),a) )#
+  }#
+  #If input and output are equal we have the identity#
+  if (sum(fval != "1":"9") == 0) return("I")#
+  #Otherwise generate cycle notation#
+  return(Perm.cycle.convert(fval))#
+}#
+#Perm.multiply("(123)","(12)(34)")#
+#Makes a list of powers separated by HTML line breaks#
+Perm.powerString <- function(perm) {#
+  power <- perm#
+  result <- perm#
+  while (power != "I") {#
+    power <- Perm.multiply(power,perm)#
+    result <- paste(result,power,sep = "<br/>")#
+  }#
+  return(result)#
+}#
+#Perm.powerString("(13542)")#
+#Finds the inverse by stopping when the next power is the identity#
+Perm.inverse <- function(perm) {#
+  power <- perm#
+  while (TRUE) {#
+    if (Perm.multiply(power,perm) == "I")#
+      return(power)#
+    power <- Perm.multiply(power,perm)#
+  }#
+}#
+#Perm.inverse("(123)(4689)")#
+#Forms the conjugate aba^(-1)#
+Perm.conjugate <- function(a,b) {#
+  Perm.multiply(a,Perm.multiply(b, Perm.inverse(a)))#
+}#
+#Perm.conjugate("(24)(567)","(123)(4689)")
+#A5 in terms of generators and relations#
+# If I knew what CSS was this part might be less ugly.#
+# Bold serif fonts for headings, like "Cayley Graph" or "Permutations"#
+kahua.s <- "font-weight: bold; font-family: 'Liberation Serif', 'Nimbus Roman No 9 L', 'Hoefler Text', 'Times', 'Times New Roman', serif"#
+# Decent-sized sans serif fonts for subheadings like "Rewrite Rules" or "Defining Relations"#
+kahua   <- "font-size:large; font-family: 'Liberation Sans', 'Nimbus Sans L', 'Lucida Sans Unicode', 'Lucida Grande', 'FreeSans', 'Helvetica Neue', 'Helvetica', sans-serif"#
+# Formatting on the generators; 'r' gets royalblue, 'f' gets darkorange, both fixed-width fonts#
+kahuaf <- "<span style = \"color:darkorange; font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">f</span>"#
+kahuar <- "<span style = \"color:royalblue; font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">r</span>"#
+identiteit <- "<span style = \"font-weight: bold; font-family: 'Liberation Serif', 'Nimbus Roman No 9 L', 'Hoefler Text', 'Times', 'Times New Roman', serif\">I</span>"#
+# here's some fixed-width whitespace so that we can kludge in some text alignment between lines#
+whitespace <- "<span style = \"font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">&nbsp;</span>"#
+# sadly rep(whitespace,n) does not do what I want so here is a silly function#
+# If I ever had delusions of being a programmer this should put those notions to rest#
+# If I remembered how sprintf() works this could be much cleaner#
+Leerraum <- function(n){ #it takes an integer n and returns a string of n non-breaking spaces#
+    peaCrabs <- ""#
+    for (i in 1:n){#
+        peaCrabs <- paste0(peaCrabs,whitespace)#
+    }#
+    return(peaCrabs)#
+}#
+# Let's see if we can make a function that takes a word made out of r and f#
+# and returns some HTML we can render for a prettier word display#
+# 'sana' is Finnish for 'group element expressed in terms of generato elements'#
+CA5.manifestWord <- function(sana){ # we get ourselves a string of 'r's and 'f's#
+    separo <- unlist(strsplit(sana, split="")) # we explode the string 'sana' into a vector of single characters 'separo'#
+    slovo <- ""#
+    if (length(separo)==0) return(identiteit) # in the dataframe the identity element is "" but when we display it we call it "I"#
+    for (i in 1:length(separo)){#
+        slovo <- paste0(slovo,ifelse(separo[i]=="f",kahuaf,kahuar)) # and we paste in the html over and over#
+    }#
+    return(slovo)#
+}#
+# here we start doing math#
+CA5.makeDataFrame <- function() {#
+    r1 <- 3.7 #distance to outer pentagon#
+    V <- matrix(nrow = 60, ncol = 2)#
+    V[1:5,1] <- r1*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[1:5,2] <- r1*(sin((0:4)*0.4*pi-0.5*pi))#
+    r2 <- 3 #distance to inner pentagon#
+    V[6:10,1] <- r2*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[6:10,2] <- r2*(sin((0:4)*0.4*pi-0.5*pi))#
+    #Interpolate#
+    V[11:15,] <- (5*V[6:10,]+V[c((7:10),6),])/6#
+    V[16:20,] <- (V[6:10,]+5*V[c((7:10),6),])/6#
+    s <- V[11:15,]-V[6:10,]#
+    V[21:25,] <- V[c(17:20,16),]-s#
+    V[26:30,] <- V[c(15,11:14),]+s#
+    r3 <- 0.5 #distance to central pentagon#
+    V[31:35,1] <- -r3*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[31:35,2] <- -r3*(sin((0:4)*0.4*pi-0.5*pi))#
+    r4 <- 1 #distance to next pentagon#
+    V[36:40,1] <- -r4*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[36:40,2] <- -r4*(sin((0:4)*0.4*pi-0.5*pi))#
+    V[41:45,] <- V[c(37:40,36),]-s#
+    V[46:50,] <- V[c(36:40),]+s#
+    V[51:55,] <- V[c(50,46:49),]+s#
+    V[56:60,] <- V[c(42:45,41),]-s#
+    # magic numbers; the function tables for r and f#
+    rdest <- c(2,3,4,5,1,20,16,17,18,19,6,7,8,9,10,25,21,22,23,24,29,30,26,27,28,15,11,12,13,14,35,31,32,33,34,45,41,42,43,44,60,56,57,58,59,36,37,38,39,40,50,46,47,48,49,54,55,51,52,53)#
+    fdest <- c(6,7,8,9,10,1,2,3,4,5,16,17,18,19,20,11,12,13,14,15,58,59,60,56,57,54,55,51,52,53,36,37,38,39,40,31,32,33,34,35,48,49,50,46,47,44,45,41,42,43,28,29,30,26,27,24,25,21,22,23)#
+    # 60#
+    N <- 60#
+    # Initialize the dataframe#
+    # Each row is a node. x and y are the x-y coordinates on the diagram.#
+    # If you apply r to the node, you go to rdest, and if you apply f to the node, you go to fdest#
+    # rsrc is going to be filled with the vertex from which an r operation will take you to this vertex#
+    # label is just writing the number#
+    # sana is going to be filled with the standard r-f word for each vertex#
+    # I'm using 'node' and 'vertex' interchangably#
+    # color is hopefully self-explanatory. It will default to light gray, but may get colored differently#
+        # when we start multiplying words or permutations#
+    # perm is going to be filled with the cycle-form permutation for the five edge colors#
+    # later I might add columns to indicate the best place to put labels for each node#
+    # xoffset1, yoffset1 for a spot in the middle of the biggest angle,#
+    # xoffset2, yoffset2 for a spot in the next biggest angle#
+    # and I suppose a third x-y pair in case we want to have 'label', 'sana', and 'perm' all#
+        # displayed on the diagram at once, although that would be pretty busy#
+    DF <- data.frame(x=V[1:N,1],#
+                     y=V[1:N,2],#
+                     rdest=rdest,#
+                     fdest=fdest,#
+                     rsrc=integer(60),#
+                     label=as.character(1:N),#
+                     sana=rep("",N),#
+                     color =rep("lightgray",N),#
+                     perm=rep("",N),#
+                     stringsAsFactors=FALSE)#
+    # insane code for creating the canonical sequence of r and f to label each vertex of the graph.#
+    # Should probably come up with a more elegant way to do this#
+    while (min(nchar(DF$sana)) == 0){#
+        for (indeksi in 1:60){#
+            if (indeksi == 1 | nchar(DF$sana[indeksi])>0){#
+                rtarget <- DF$rdest[indeksi]#
+                rsana <- paste("r",DF$sana[indeksi],sep="")#
+                ftarget <- DF$fdest[indeksi]#
+                fsana <- paste("f",DF$sana[indeksi],sep="")#
+                if (nchar(DF$sana[rtarget])==0){#
+                    DF$sana[rtarget] <- rsana#
+                }#
+                if (nchar(DF$sana[ftarget])==0){#
+                    DF$sana[ftarget] <- fsana#
+                }#
+            }#
+        }#
+    }#
+    # and now that we have some sort of sequence of r and f that gets to each node, multiply by I#
+    # because that will put everything into our standard form.#
+    for (xarisxis in 1:60){#
+        DF$sana[xarisxis] <- CA5.multiply(DF$sana[xarisxis],"")#
+    }#
+    # Time to fill in the rsrc column#
+    for (xarisxis in 1:60){#
+        DF$rsrc[xarisxis]<-which(DF$rdest==xarisxis)#
+    }#
+#For the sake of nostalgia, here's the old code for building the dataframe#
+    # DF <- data.frame(x=numeric(6),y=numeric(6),rdest=numeric(6),#
+    #                  fdest=numeric(6),label=rep("",6),sana=rep("",6),#
+    #                  stringsAsFactors = FALSE)#
+    # DF[1,]<-c(V[1,1],V[1,2],2,6,"1","")#
+    # DF[2,]<-c(V[2,1],V[2,2],3,7,"2","")#
+    # DF[3,]<-c(V[3,1],V[3,2],4,8,"3","")#
+    # DF[4,]<-c(V[4,1],V[4,2],5,9,"4","")#
+    # DF[5,]<-c(V[5,1],V[5,2],1,10,"5","")#
+    # DF[6,]<-c(V[6,1],V[6,2],20,1,"6","")#
+    # DF[7,]<-c(V[7,1],V[7,2],16,2,"7","")#
+    # DF[8,]<-c(V[8,1],V[8,2],17,3,"8","")#
+    # DF[9,]<-c(V[9,1],V[9,2],18,4,"9","")#
+    # DF[10,]<-c(V[10,1],V[10,2],19,5,"10","")#
+    # DF[11,]<-c(V[11,1],V[11,2],6,16,"11","")#
+    # DF[12,]<-c(V[12,1],V[12,2],7,17,"12","")#
+    # DF[13,]<-c(V[13,1],V[13,2],8,18,"13","")#
+    # DF[14,]<-c(V[14,1],V[14,2],9,19,"14","")#
+    # DF[15,]<-c(V[15,1],V[15,2],10,20,"15","")#
+    # DF[16,]<-c(V[16,1],V[16,2],25,11,"16","")#
+    # DF[17,]<-c(V[17,1],V[17,2],21,12,"17","")#
+    # DF[18,]<-c(V[18,1],V[18,2],22,13,"18","")#
+    # DF[19,]<-c(V[19,1],V[19,2],23,14,"19","")#
+    # DF[20,]<-c(V[20,1],V[20,2],24,15,"20","")#
+    # DF[21,]<-c(V[21,1],V[21,2],29,58,"21","")#
+    # DF[22,]<-c(V[22,1],V[22,2],30,59,"22","")#
+    # DF[23,]<-c(V[23,1],V[23,2],26,60,"23","")#
+    # DF[24,]<-c(V[24,1],V[24,2],27,56,"24","")#
+    # DF[25,]<-c(V[25,1],V[25,2],28,57,"25","")#
+    # DF[26,]<-c(V[26,1],V[26,2],15,54,"26","")#
+    # DF[27,]<-c(V[27,1],V[27,2],11,55,"27","")#
+    # DF[28,]<-c(V[28,1],V[28,2],12,51,"28","")#
+    # DF[29,]<-c(V[29,1],V[29,2],13,52,"29","")#
+    # DF[30,]<-c(V[30,1],V[30,2],14,53,"30","")#
+    # DF[31,]<-c(V[31,1],V[31,2],35,36,"31","")#
+    # DF[32,]<-c(V[32,1],V[32,2],31,37,"32","")#
+    # DF[33,]<-c(V[33,1],V[33,2],32,38,"33","")#
+    # DF[34,]<-c(V[34,1],V[34,2],33,39,"34","")#
+    # DF[35,]<-c(V[35,1],V[35,2],34,40,"35","")#
+    # DF[36,]<-c(V[36,1],V[36,2],45,31,"36","")#
+    # DF[37,]<-c(V[37,1],V[37,2],41,32,"37","")#
+    # DF[38,]<-c(V[38,1],V[38,2],42,33,"38","")#
+    # DF[39,]<-c(V[39,1],V[39,2],43,34,"39","")#
+    # DF[40,]<-c(V[40,1],V[40,2],44,35,"40","")#
+    # DF[41,]<-c(V[41,1],V[41,2],60,48,"41","")#
+    # DF[42,]<-c(V[42,1],V[42,2],56,49,"42","")#
+    # DF[43,]<-c(V[43,1],V[43,2],57,50,"43","")#
+    # DF[44,]<-c(V[44,1],V[44,2],58,46,"44","")#
+    # DF[45,]<-c(V[45,1],V[45,2],59,47,"45","")#
+    # DF[46,]<-c(V[46,1],V[46,2],36,44,"46","")#
+    # DF[47,]<-c(V[47,1],V[47,2],37,45,"47","")#
+    # DF[48,]<-c(V[48,1],V[48,2],38,41,"48","")#
+    # DF[49,]<-c(V[49,1],V[49,2],39,42,"49","")#
+    # DF[50,]<-c(V[50,1],V[50,2],40,43,"50","")#
+    # DF[51,]<-c(V[51,1],V[51,2],50,28,"51","")#
+    # DF[52,]<-c(V[52,1],V[52,2],46,29,"52","")#
+    # DF[53,]<-c(V[53,1],V[53,2],47,30,"53","")#
+    # DF[54,]<-c(V[54,1],V[54,2],48,26,"54","")#
+    # DF[55,]<-c(V[55,1],V[55,2],49,27,"55","")#
+    # DF[56,]<-c(V[56,1],V[56,2],54,24,"56","")#
+    # DF[57,]<-c(V[57,1],V[57,2],55,25,"57","")#
+    # DF[58,]<-c(V[58,1],V[58,2],51,21,"58","")#
+    # DF[59,]<-c(V[59,1],V[59,2],52,22,"59","")#
+    # DF[60,]<-c(V[60,1],V[60,2],53,23,"60","")#
+    # #
+    # #
+    # #
+    # DF <-transform(DF,x=as.numeric(x),y=as.numeric(y),#
+    #                rdest=as.numeric(rdest),fdest=as.numeric(fdest))#
+    return(DF)#
+}#
+uqqw<-integrate(function(x) 1/log(x)+1/(1-x),0,1);xvc<-uqqw$value;cvx<-1-xvc # yup#
+i_to_the_i <- exp(-pi/2) # i to the i is real and equals sqrt(exp(-pi))#
+# Let's try to identify the best place to put a label.#
+# Every vertex has three line segments, one for f,#
+# and two for r, with one representing V as target and the other V as source.#
+# We can just find the angles between all three segments#
+# and declare the biggest angle the best place to put a label.#
+# Now, for each vertex we find the three cosines#
+# This is crude and inelegant, and if we were doing more than three vectors we would make it pretty by using matrices#
+# OK time to draw some graph#
+CA5.drawGraph <- function(DF, permlabel=FALSE) { # not using the permlabel argument but leaving it in because hope springs eternal#
+    xr0 <- DF[DF$rsrc,1]; yr0 <- DF[DF$rsrc,2]  # the coordinates for where an r is coming from#
+    xr1 <- DF[DF$rdest,1];yr1 <- DF[DF$rdest,2] # the coordinates for where r takes us#
+    xf1 <- DF[DF$fdest,1];yf1 <- DF[DF$fdest,2] # the coordinates for where f takes us#
+    xv1 <- xr0 - DF$x; yv1 <- yr0 - DF$y # vector components for incoming r vector#
+    xv2 <- xr1 - DF$x; yv2 <- yr1 - DF$y # vector components for outgoing r vector#
+    xv3 <- xf1 - DF$x; yv3 <- yf1 - DF$y # vector components for f vector#
+    norme1 <- sqrt(xv1^2+yv1^2); norme2 <- sqrt(xv2^2+yv2^2);norme3 <- sqrt(xv3^2+yv3^2) # some Euclidean norms#
+    xv1 <- xv1/norme1; yv1 <- yv1/norme1 # normalize the vectors now#
+    xv2 <- xv2/norme2; yv2 <- yv2/norme2 # I hope no one but me ever has to debug this#
+    xv3 <- xv3/norme3; yv3 <- yv3/norme3 # because this is bad even for me#
+    ks12 <- xv1*xv2+yv1*yv2; ks13<- xv1*xv3+yv1*yv3; ks23 <- xv2*xv3+yv2*yv3 # ksab is the product of vector a with vector b#
+    for (i in 1:60){ # I should really figure out how to vectorize this#
+        smks <- min(ks12[i],ks13[i],ks23[i]) # the widest angle has the smallest cosine (not true in general but true for our diagram)#
+        if (ks12[i]==smks){#
+            xv3[i] <- -2*xv3[i]#
+            yv3[i] <- -2*yv3[i]; next # I am going to programmer hell#
+        }#
+        if (ks13[i]==smks){#
+            xv2[i] <- -2*xv2[i]#
+            yv2[i] <- -2*yv2[i]; next#
+        }#
+            xv1[i] <- -2*xv1[i] #
+            yv1[i] <- -2*yv1[i] #
+    }#
+    offx <- xv1 + xv2 + xv3; offy <- yv1 + yv2 + yv3#
+    xoffset <- offx*i_to_the_i/sqrt(offx^2+offy^2);yoffset <- offy*i_to_the_i/sqrt(offx^2+offy^2) # this is going to be hard to debug#
+    par(mar=c(.1,.1,.1,.1))  #narrow margins#
+    # start an empty plot, just big enough, and make sure the aspect ratio is forced to 1#
+    plot(NULL,xlim = c(1.05*min(DF$x),1.05*max(DF$x)),ylim = c(1.05*min(DF$y),1.05*max(DF$y)),axes = FALSE, asp = 1)#
+    arrows(DF$x,DF$y,(xvc*xr1+cvx*DF$x),(xvc*yr1+cvx*DF$y),length = 0.1,col="DarkSlateBlue") # draw blue arrows#
+    segments((xvc*xr1+cvx*DF$x),(xvc*yr1+cvx*DF$y),xr1,yr1,col="DarkSlateBlue") # these represent multiplication by r#
+    segments(DF$x,DF$y,xf1,yf1,col = "lightsalmon", lwd = 2) # no arrowheads because f is order 2#
+    points(DF$x,DF$y,pch=21,bg = DF$color, col = "black", cex=2) # and now we draw the vertices, after the lines#
+    text(DF$x+xoffset,DF$y+yoffset,DF$label) # now we actually label#
+}#
+# super advanced debugging technique#
+# CA5.drawGraph(A5DF)#
+# how we multiply group elements represented in terms of their generators#
+CA5.multiply <- function(a,b) {#
+    x <- paste("rrrrr",a,b,sep="") # collapsing it down to standard form is messy so don't question me#
+    oldx <- "xyzzy" # initialize previous non-standard generator form with nonsense#
+    while (x!=oldx){ # I could have left it as a for loop but I thought it would be more elegant like this#
+        oldx <- x # before we mess with it, keep a copy for reference#
+        x <- sub("ff","",x) # two flips equals nothing#
+        x <- sub("frf","rrrrfrrrr",x) # flip,rotate,flip = counter-rotate,flip,counter-rotate#
+        x <- sub("frrrrf","rfr",x) # flip,counter-rotate,flip = rotate,flip,rotate#
+        x <- sub("rfrrf","frrrfrrrr",x) # yeah you get the idea#
+        x <- sub("frrrfrrrf","rfrrrfr",x) # there's lots of ways of getting from point A to point B#
+        x <- sub("rrrrr","",x) # five consecutive rotations is not a good use of your time#
+    }#
+    return(x)#
+}#
+# There's a function here to raise a generator-form element to an integer power#
+# I don't think we ever use it#
+CA5.power <- function(a,n){#
+    x <-a # it does pretty much what you'd expect#
+    while (n>1){#
+        x <- CA5.multiply(x,a) # it's multiplying#
+        n <- n-1 # n times#
+    }#
+    return(x)#
+}#
+# markVertex takes a dataframe, a way of representating the vertex, and a color#
+# it is 'overloaded' in that it can cope with the vertex being represented either#
+    # in generator form or just by its index number#
+        # If you try to input its permutation cycles this will fail#
+        # maybe I could add something to cope with that#
+# Important note: the only thing this function does is change the value of 'color' in the dataframe#
+# It does not redraw the diagram#
+CA5.markVertex <- function(DF,x,color) {#
+    if (is.character(x)){#
+        x <- CA5.multiply(x,"")#
+        x <- which(DF$sana == x)#
+    }#
+    DF$color[x] <- color # replaced hardcoded column number with column name#
+    return(DF)#
+} #
+A5DF <- CA5.makeDataFrame() #this seems like a weird place to put this but whatever#
+# A5DF <- CA5.markVertex(A5DF,"frrrf","orangered")#
+# A5DF <- CA5.markVertex(A5DF,59,"cornflowerblue")#
+ CA5.drawGraph(A5DF)#
+# let's not waste our time rewriting permutecalc, it's perfect#
+source("permutecalc.R")#
+# Given a cycle form for r 'rSana' and a cycle form for f 'fSana'#
+# a dataframe, and a single word made up of generator elements#
+# convert the generator word into cycle notation#
+# returns a permutation like (13)(25)#
+CA5.makePerm <- function(DF,sana,IVert ="I", rSana = "(12345)", fSana = "(12)(34)"){#
+    product = IVert # start with the identity#
+    n <- nchar(sana) # how many elements are in the generator word#
+    if (n > 0) # as long as it's not stupid,#
+        for (i in (1:nchar(sana))){ # loop through the word#
+            g <- substr(sana,i,i) # we might be able to do this with strsplit()#
+            product <- Perm.multiply(product,ifelse(g=="f",fSana,rSana)) # use Perm.multiply to multiply perms#
+        }#
+    return (product)#
+}#
+# CA5.makePerm(A5DF,"frrrr")#
+# This function makePerms is TOTALLY DIFFERENT from the function makePerm#
+# This one takes a dataframe and the permutation cycle-form representations for the generators,#
+# and returns a dataframe completely filled in with permutation representations for all the vertices#
+CA5.makePerms <- function(DF,rSana = "(12345)", fSana = "(12)(34)"){#
+    for (i in (1:nrow(DF))){#
+        DF$perm[i] <- CA5.makePerm(DF,DF$sana[i],"I",rSana,fSana)#
+        DF$label[i] <- DF$perm[i] # This will work for now but once you make perms you can never go back#
+    }#
+    return (DF)#
+}#
+##############################################
+ A5DF <- CA5.makePerms(A5DF)#
+# CA5.drawGraph(A5DF)#
+# findClosestVertex takes an x and y coordinate#
+# and unsurprisingly enough, finds the closest vertex to that position#
+# through the straightforward approach of calculating all the distances#
+CA5.findClosestVertex <- function(x,y){#
+    DF <- CA5.makeDataFrame()#
+    distsq <- numeric(6)#
+    for (i in 1:60){#
+        distsq[i] <- (DF[i,1]-x)^2+(DF[i,2]-y)^2#
+    }#
+    k <- which(distsq == min(distsq))#
+    stopifnot(length(k)==1)#
+    return(k)#
+}#
+# perms <- sapply(A5DF$sana,CA5.makePerm,DF=A5DF)#
+# perms
+install.packages("igraph")
+library('igraph')
+graph1 <- graph (edges = c(1,2, 2,3, 3,4, 4,5, 1,5), n = 5)
+plot(graph1)
+graph1 <- graph (edges = c(1,2, 2,3, 3,4, 4,5, 1,5), n = 5)
+plot(graph1)
+graph1 <- graph (edges = c(1,2, 2,3, 3,4, 4,5), n = 5)
+plot(graph1)
+graph1 <- graph (edges = c(1,2, 2,4, 2,3, 3,4, 4,5, 1,5), n = 5)
+plot(graph1)
+graph1 <- graph (edges = c(1,2, 2,4, 2,3, 3,4, 4,5, 1,5), n = 5, directed = F)
+plot(graph1)
+dev.off()
+class(graph)
+class(graph1)
+graph1
+E(graph1)
+isolates=c("4", "5", "6", "7") )
+V(graph1)
+node_names = c("A", "B", "C", "D", "E", "F")
+n_edges = 8
+n_edges = 8
+node_names = c("A", "B", "C", "D", "E", "F")
+n_edges = 8
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes
+set.seed(746)
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows
+edges_df
+edges_df
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)
+plot(dfgraph)
+node_names = c("A", "B", "C", "D", "E", "F")
+n_edges = 8
+combn(node_names, m=2)
+node_names = c("A", "B", "C", "D", "E", "F")
+n_edges = 8
+combn(node_names, m=2)
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes
+all_possible_edges_df
+set.seed(746)
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows
+edges_df
+node_names = c(1:6)
+n_edges = 6
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes
+all_possible_edges_df
+n_edges = 6
+node_names = c(1:n_edges)
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes
+set.seed(746)
+set.seed(as.numeric(Sys.time()))
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows
+edges_df
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)
+plot(dfgraph)
+set.seed(as.numeric(Sys.time()))#
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+edges_df#
+#
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)#
+#
+plot(dfgraph)
+set.seed(as.numeric(Sys.time()))#
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+edges_df#
+#
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)#
+#
+plot(dfgraph)
+set.seed(as.numeric(Sys.time()))#
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+edges_df#
+#
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)#
+#
+plot(dfgraph)
+dev.off()
+dev.off()
+#A5 in terms of generators and relations#
+# If I knew what CSS was this part might be less ugly.#
+# Bold serif fonts for headings, like "Cayley Graph" or "Permutations"#
+kahua.s <- "font-weight: bold; font-family: 'Liberation Serif', 'Nimbus Roman No 9 L', 'Hoefler Text', 'Times', 'Times New Roman', serif"#
+# Decent-sized sans serif fonts for subheadings like "Rewrite Rules" or "Defining Relations"#
+kahua   <- "font-size:large; font-family: 'Liberation Sans', 'Nimbus Sans L', 'Lucida Sans Unicode', 'Lucida Grande', 'FreeSans', 'Helvetica Neue', 'Helvetica', sans-serif"#
+# Formatting on the generators; 'r' gets royalblue, 'f' gets darkorange, both fixed-width fonts#
+kahuaf <- "<span style = \"color:darkorange; font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">f</span>"#
+kahuar <- "<span style = \"color:royalblue; font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">r</span>"#
+identiteit <- "<span style = \"font-weight: bold; font-family: 'Liberation Serif', 'Nimbus Roman No 9 L', 'Hoefler Text', 'Times', 'Times New Roman', serif\">I</span>"#
+# here's some fixed-width whitespace so that we can kludge in some text alignment between lines#
+whitespace <- "<span style = \"font-weight: bold; font-family: 'Liberation Mono', 'Nimbus Mono L', 'DejaVu Mono', 'Bitstream Sans Mono', 'Bitstream Vera Mono', 'Lucida Console', 'Andale Mono', 'Courier New', monospace\">&nbsp;</span>"#
+# sadly rep(whitespace,n) does not do what I want so here is a silly function#
+# If I ever had delusions of being a programmer this should put those notions to rest#
+# If I remembered how sprintf() works this could be much cleaner#
+Leerraum <- function(n){ #it takes an integer n and returns a string of n non-breaking spaces#
+    peaCrabs <- ""#
+    for (i in 1:n){#
+        peaCrabs <- paste0(peaCrabs,whitespace)#
+    }#
+    return(peaCrabs)#
+}#
+# Let's see if we can make a function that takes a word made out of r and f#
+# and returns some HTML we can render for a prettier word display#
+# 'sana' is Finnish for 'group element expressed in terms of generato elements'#
+CA5.manifestWord <- function(sana){ # we get ourselves a string of 'r's and 'f's#
+    separo <- unlist(strsplit(sana, split="")) # we explode the string 'sana' into a vector of single characters 'separo'#
+    slovo <- ""#
+    if (length(separo)==0) return(identiteit) # in the dataframe the identity element is "" but when we display it we call it "I"#
+    for (i in 1:length(separo)){#
+        slovo <- paste0(slovo,ifelse(separo[i]=="f",kahuaf,kahuar)) # and we paste in the html over and over#
+    }#
+    return(slovo)#
+}#
+# here we start doing math#
+CA5.makeDataFrame <- function() {#
+    r1 <- 3.7 #distance to outer pentagon#
+    V <- matrix(nrow = 60, ncol = 2)#
+    V[1:5,1] <- r1*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[1:5,2] <- r1*(sin((0:4)*0.4*pi-0.5*pi))#
+    r2 <- 3 #distance to inner pentagon#
+    V[6:10,1] <- r2*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[6:10,2] <- r2*(sin((0:4)*0.4*pi-0.5*pi))#
+    #Interpolate#
+    V[11:15,] <- (5*V[6:10,]+V[c((7:10),6),])/6#
+    V[16:20,] <- (V[6:10,]+5*V[c((7:10),6),])/6#
+    s <- V[11:15,]-V[6:10,]#
+    V[21:25,] <- V[c(17:20,16),]-s#
+    V[26:30,] <- V[c(15,11:14),]+s#
+    r3 <- 0.5 #distance to central pentagon#
+    V[31:35,1] <- -r3*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[31:35,2] <- -r3*(sin((0:4)*0.4*pi-0.5*pi))#
+    r4 <- 1 #distance to next pentagon#
+    V[36:40,1] <- -r4*(cos((0:4)*0.4*pi-0.5*pi))#
+    V[36:40,2] <- -r4*(sin((0:4)*0.4*pi-0.5*pi))#
+    V[41:45,] <- V[c(37:40,36),]-s#
+    V[46:50,] <- V[c(36:40),]+s#
+    V[51:55,] <- V[c(50,46:49),]+s#
+    V[56:60,] <- V[c(42:45,41),]-s#
+    # magic numbers; the function tables for r and f#
+    rdest <- c(2,3,4,5,1,20,16,17,18,19,6,7,8,9,10,25,21,22,23,24,29,30,26,27,28,15,11,12,13,14,35,31,32,33,34,45,41,42,43,44,60,56,57,58,59,36,37,38,39,40,50,46,47,48,49,54,55,51,52,53)#
+    fdest <- c(6,7,8,9,10,1,2,3,4,5,16,17,18,19,20,11,12,13,14,15,58,59,60,56,57,54,55,51,52,53,36,37,38,39,40,31,32,33,34,35,48,49,50,46,47,44,45,41,42,43,28,29,30,26,27,24,25,21,22,23)#
+    # 60#
+    N <- 60#
+    # Initialize the dataframe#
+    # Each row is a node. x and y are the x-y coordinates on the diagram.#
+    # If you apply r to the node, you go to rdest, and if you apply f to the node, you go to fdest#
+    # rsrc is going to be filled with the vertex from which an r operation will take you to this vertex#
+    # label is just writing the number#
+    # sana is going to be filled with the standard r-f word for each vertex#
+    # I'm using 'node' and 'vertex' interchangably#
+    # color is hopefully self-explanatory. It will default to light gray, but may get colored differently#
+        # when we start multiplying words or permutations#
+    # perm is going to be filled with the cycle-form permutation for the five edge colors#
+    # later I might add columns to indicate the best place to put labels for each node#
+    # xoffset1, yoffset1 for a spot in the middle of the biggest angle,#
+    # xoffset2, yoffset2 for a spot in the next biggest angle#
+    # and I suppose a third x-y pair in case we want to have 'label', 'sana', and 'perm' all#
+        # displayed on the diagram at once, although that would be pretty busy#
+    DF <- data.frame(x=V[1:N,1],#
+                     y=V[1:N,2],#
+                     rdest=rdest,#
+                     fdest=fdest,#
+                     rsrc=integer(60),#
+                     label=as.character(1:N),#
+                     sana=rep("",N),#
+                     color =rep("lightgray",N),#
+                     perm=rep("",N),#
+                     stringsAsFactors=FALSE)#
+    # insane code for creating the canonical sequence of r and f to label each vertex of the graph.#
+    # Should probably come up with a more elegant way to do this#
+    while (min(nchar(DF$sana)) == 0){#
+        for (indeksi in 1:60){#
+            if (indeksi == 1 | nchar(DF$sana[indeksi])>0){#
+                rtarget <- DF$rdest[indeksi]#
+                rsana <- paste("r",DF$sana[indeksi],sep="")#
+                ftarget <- DF$fdest[indeksi]#
+                fsana <- paste("f",DF$sana[indeksi],sep="")#
+                if (nchar(DF$sana[rtarget])==0){#
+                    DF$sana[rtarget] <- rsana#
+                }#
+                if (nchar(DF$sana[ftarget])==0){#
+                    DF$sana[ftarget] <- fsana#
+                }#
+            }#
+        }#
+    }#
+    # and now that we have some sort of sequence of r and f that gets to each node, multiply by I#
+    # because that will put everything into our standard form.#
+    for (xarisxis in 1:60){#
+        DF$sana[xarisxis] <- CA5.multiply(DF$sana[xarisxis],"")#
+    }#
+    # Time to fill in the rsrc column#
+    for (xarisxis in 1:60){#
+        DF$rsrc[xarisxis]<-which(DF$rdest==xarisxis)#
+    }#
+#For the sake of nostalgia, here's the old code for building the dataframe#
+    # DF <- data.frame(x=numeric(6),y=numeric(6),rdest=numeric(6),#
+    #                  fdest=numeric(6),label=rep("",6),sana=rep("",6),#
+    #                  stringsAsFactors = FALSE)#
+    # DF[1,]<-c(V[1,1],V[1,2],2,6,"1","")#
+    # DF[2,]<-c(V[2,1],V[2,2],3,7,"2","")#
+    # DF[3,]<-c(V[3,1],V[3,2],4,8,"3","")#
+    # DF[4,]<-c(V[4,1],V[4,2],5,9,"4","")#
+    # DF[5,]<-c(V[5,1],V[5,2],1,10,"5","")#
+    # DF[6,]<-c(V[6,1],V[6,2],20,1,"6","")#
+    # DF[7,]<-c(V[7,1],V[7,2],16,2,"7","")#
+    # DF[8,]<-c(V[8,1],V[8,2],17,3,"8","")#
+    # DF[9,]<-c(V[9,1],V[9,2],18,4,"9","")#
+    # DF[10,]<-c(V[10,1],V[10,2],19,5,"10","")#
+    # DF[11,]<-c(V[11,1],V[11,2],6,16,"11","")#
+    # DF[12,]<-c(V[12,1],V[12,2],7,17,"12","")#
+    # DF[13,]<-c(V[13,1],V[13,2],8,18,"13","")#
+    # DF[14,]<-c(V[14,1],V[14,2],9,19,"14","")#
+    # DF[15,]<-c(V[15,1],V[15,2],10,20,"15","")#
+    # DF[16,]<-c(V[16,1],V[16,2],25,11,"16","")#
+    # DF[17,]<-c(V[17,1],V[17,2],21,12,"17","")#
+    # DF[18,]<-c(V[18,1],V[18,2],22,13,"18","")#
+    # DF[19,]<-c(V[19,1],V[19,2],23,14,"19","")#
+    # DF[20,]<-c(V[20,1],V[20,2],24,15,"20","")#
+    # DF[21,]<-c(V[21,1],V[21,2],29,58,"21","")#
+    # DF[22,]<-c(V[22,1],V[22,2],30,59,"22","")#
+    # DF[23,]<-c(V[23,1],V[23,2],26,60,"23","")#
+    # DF[24,]<-c(V[24,1],V[24,2],27,56,"24","")#
+    # DF[25,]<-c(V[25,1],V[25,2],28,57,"25","")#
+    # DF[26,]<-c(V[26,1],V[26,2],15,54,"26","")#
+    # DF[27,]<-c(V[27,1],V[27,2],11,55,"27","")#
+    # DF[28,]<-c(V[28,1],V[28,2],12,51,"28","")#
+    # DF[29,]<-c(V[29,1],V[29,2],13,52,"29","")#
+    # DF[30,]<-c(V[30,1],V[30,2],14,53,"30","")#
+    # DF[31,]<-c(V[31,1],V[31,2],35,36,"31","")#
+    # DF[32,]<-c(V[32,1],V[32,2],31,37,"32","")#
+    # DF[33,]<-c(V[33,1],V[33,2],32,38,"33","")#
+    # DF[34,]<-c(V[34,1],V[34,2],33,39,"34","")#
+    # DF[35,]<-c(V[35,1],V[35,2],34,40,"35","")#
+    # DF[36,]<-c(V[36,1],V[36,2],45,31,"36","")#
+    # DF[37,]<-c(V[37,1],V[37,2],41,32,"37","")#
+    # DF[38,]<-c(V[38,1],V[38,2],42,33,"38","")#
+    # DF[39,]<-c(V[39,1],V[39,2],43,34,"39","")#
+    # DF[40,]<-c(V[40,1],V[40,2],44,35,"40","")#
+    # DF[41,]<-c(V[41,1],V[41,2],60,48,"41","")#
+    # DF[42,]<-c(V[42,1],V[42,2],56,49,"42","")#
+    # DF[43,]<-c(V[43,1],V[43,2],57,50,"43","")#
+    # DF[44,]<-c(V[44,1],V[44,2],58,46,"44","")#
+    # DF[45,]<-c(V[45,1],V[45,2],59,47,"45","")#
+    # DF[46,]<-c(V[46,1],V[46,2],36,44,"46","")#
+    # DF[47,]<-c(V[47,1],V[47,2],37,45,"47","")#
+    # DF[48,]<-c(V[48,1],V[48,2],38,41,"48","")#
+    # DF[49,]<-c(V[49,1],V[49,2],39,42,"49","")#
+    # DF[50,]<-c(V[50,1],V[50,2],40,43,"50","")#
+    # DF[51,]<-c(V[51,1],V[51,2],50,28,"51","")#
+    # DF[52,]<-c(V[52,1],V[52,2],46,29,"52","")#
+    # DF[53,]<-c(V[53,1],V[53,2],47,30,"53","")#
+    # DF[54,]<-c(V[54,1],V[54,2],48,26,"54","")#
+    # DF[55,]<-c(V[55,1],V[55,2],49,27,"55","")#
+    # DF[56,]<-c(V[56,1],V[56,2],54,24,"56","")#
+    # DF[57,]<-c(V[57,1],V[57,2],55,25,"57","")#
+    # DF[58,]<-c(V[58,1],V[58,2],51,21,"58","")#
+    # DF[59,]<-c(V[59,1],V[59,2],52,22,"59","")#
+    # DF[60,]<-c(V[60,1],V[60,2],53,23,"60","")#
+    # #
+    # #
+    # #
+    # DF <-transform(DF,x=as.numeric(x),y=as.numeric(y),#
+    #                rdest=as.numeric(rdest),fdest=as.numeric(fdest))#
+    return(DF)#
+}#
+uqqw<-integrate(function(x) 1/log(x)+1/(1-x),0,1);xvc<-uqqw$value;cvx<-1-xvc # yup#
+i_to_the_i <- exp(-pi/2) # i to the i is real and equals sqrt(exp(-pi))#
+# Let's try to identify the best place to put a label.#
+# Every vertex has three line segments, one for f,#
+# and two for r, with one representing V as target and the other V as source.#
+# We can just find the angles between all three segments#
+# and declare the biggest angle the best place to put a label.#
+# Now, for each vertex we find the three cosines#
+# This is crude and inelegant, and if we were doing more than three vectors we would make it pretty by using matrices#
+# OK time to draw some graph#
+CA5.drawGraph <- function(DF, permlabel=FALSE) { # not using the permlabel argument but leaving it in because hope springs eternal#
+    xr0 <- DF[DF$rsrc,1]; yr0 <- DF[DF$rsrc,2]  # the coordinates for where an r is coming from#
+    xr1 <- DF[DF$rdest,1];yr1 <- DF[DF$rdest,2] # the coordinates for where r takes us#
+    xf1 <- DF[DF$fdest,1];yf1 <- DF[DF$fdest,2] # the coordinates for where f takes us#
+    xv1 <- xr0 - DF$x; yv1 <- yr0 - DF$y # vector components for incoming r vector#
+    xv2 <- xr1 - DF$x; yv2 <- yr1 - DF$y # vector components for outgoing r vector#
+    xv3 <- xf1 - DF$x; yv3 <- yf1 - DF$y # vector components for f vector#
+    norme1 <- sqrt(xv1^2+yv1^2); norme2 <- sqrt(xv2^2+yv2^2);norme3 <- sqrt(xv3^2+yv3^2) # some Euclidean norms#
+    xv1 <- xv1/norme1; yv1 <- yv1/norme1 # normalize the vectors now#
+    xv2 <- xv2/norme2; yv2 <- yv2/norme2 # I hope no one but me ever has to debug this#
+    xv3 <- xv3/norme3; yv3 <- yv3/norme3 # because this is bad even for me#
+    ks12 <- xv1*xv2+yv1*yv2; ks13<- xv1*xv3+yv1*yv3; ks23 <- xv2*xv3+yv2*yv3 # ksab is the product of vector a with vector b#
+    for (i in 1:60){ # I should really figure out how to vectorize this#
+        smks <- min(ks12[i],ks13[i],ks23[i]) # the widest angle has the smallest cosine (not true in general but true for our diagram)#
+        if (ks12[i]==smks){#
+            xv3[i] <- -2*xv3[i]#
+            yv3[i] <- -2*yv3[i]; next # I am going to programmer hell#
+        }#
+        if (ks13[i]==smks){#
+            xv2[i] <- -2*xv2[i]#
+            yv2[i] <- -2*yv2[i]; next#
+        }#
+            xv1[i] <- -2*xv1[i] #
+            yv1[i] <- -2*yv1[i] #
+    }#
+    offx <- xv1 + xv2 + xv3; offy <- yv1 + yv2 + yv3#
+    xoffset <- offx*i_to_the_i/sqrt(offx^2+offy^2);yoffset <- offy*i_to_the_i/sqrt(offx^2+offy^2) # this is going to be hard to debug#
+    par(mar=c(.1,.1,.1,.1))  #narrow margins#
+    # start an empty plot, just big enough, and make sure the aspect ratio is forced to 1#
+    plot(NULL,xlim = c(1.05*min(DF$x),1.05*max(DF$x)),ylim = c(1.05*min(DF$y),1.05*max(DF$y)),axes = FALSE, asp = 1)#
+    arrows(DF$x,DF$y,(xvc*xr1+cvx*DF$x),(xvc*yr1+cvx*DF$y),length = 0.1,col="DarkSlateBlue") # draw blue arrows#
+    segments((xvc*xr1+cvx*DF$x),(xvc*yr1+cvx*DF$y),xr1,yr1,col="DarkSlateBlue") # these represent multiplication by r#
+    segments(DF$x,DF$y,xf1,yf1,col = "lightsalmon", lwd = 2) # no arrowheads because f is order 2#
+    points(DF$x,DF$y,pch=21,bg = DF$color, col = "black", cex=2) # and now we draw the vertices, after the lines#
+    text(DF$x+xoffset,DF$y+yoffset,DF$label) # now we actually label#
+}#
+# super advanced debugging technique#
+# CA5.drawGraph(A5DF)#
+# how we multiply group elements represented in terms of their generators#
+CA5.multiply <- function(a,b) {#
+    x <- paste("rrrrr",a,b,sep="") # collapsing it down to standard form is messy so don't question me#
+    oldx <- "xyzzy" # initialize previous non-standard generator form with nonsense#
+    while (x!=oldx){ # I could have left it as a for loop but I thought it would be more elegant like this#
+        oldx <- x # before we mess with it, keep a copy for reference#
+        x <- sub("ff","",x) # two flips equals nothing#
+        x <- sub("frf","rrrrfrrrr",x) # flip,rotate,flip = counter-rotate,flip,counter-rotate#
+        x <- sub("frrrrf","rfr",x) # flip,counter-rotate,flip = rotate,flip,rotate#
+        x <- sub("rfrrf","frrrfrrrr",x) # yeah you get the idea#
+        x <- sub("frrrfrrrf","rfrrrfr",x) # there's lots of ways of getting from point A to point B#
+        x <- sub("rrrrr","",x) # five consecutive rotations is not a good use of your time#
+    }#
+    return(x)#
+}#
+# There's a function here to raise a generator-form element to an integer power#
+# I don't think we ever use it#
+CA5.power <- function(a,n){#
+    x <-a # it does pretty much what you'd expect#
+    while (n>1){#
+        x <- CA5.multiply(x,a) # it's multiplying#
+        n <- n-1 # n times#
+    }#
+    return(x)#
+}#
+# markVertex takes a dataframe, a way of representating the vertex, and a color#
+# it is 'overloaded' in that it can cope with the vertex being represented either#
+    # in generator form or just by its index number#
+        # If you try to input its permutation cycles this will fail#
+        # maybe I could add something to cope with that#
+# Important note: the only thing this function does is change the value of 'color' in the dataframe#
+# It does not redraw the diagram#
+CA5.markVertex <- function(DF,x,color) {#
+    if (is.character(x)){#
+        x <- CA5.multiply(x,"")#
+        x <- which(DF$sana == x)#
+    }#
+    DF$color[x] <- color # replaced hardcoded column number with column name#
+    return(DF)#
+} #
+A5DF <- CA5.makeDataFrame() #this seems like a weird place to put this but whatever#
+# A5DF <- CA5.markVertex(A5DF,"frrrf","orangered")#
+# A5DF <- CA5.markVertex(A5DF,59,"cornflowerblue")#
+ CA5.drawGraph(A5DF)#
+# let's not waste our time rewriting permutecalc, it's perfect#
+source("permutecalc.R")#
+# Given a cycle form for r 'rSana' and a cycle form for f 'fSana'#
+# a dataframe, and a single word made up of generator elements#
+# convert the generator word into cycle notation#
+# returns a permutation like (13)(25)#
+CA5.makePerm <- function(DF,sana,IVert ="I", rSana = "(12345)", fSana = "(12)(34)"){#
+    product = IVert # start with the identity#
+    n <- nchar(sana) # how many elements are in the generator word#
+    if (n > 0) # as long as it's not stupid,#
+        for (i in (1:nchar(sana))){ # loop through the word#
+            g <- substr(sana,i,i) # we might be able to do this with strsplit()#
+            product <- Perm.multiply(product,ifelse(g=="f",fSana,rSana)) # use Perm.multiply to multiply perms#
+        }#
+    return (product)#
+}#
+# CA5.makePerm(A5DF,"frrrr")#
+# This function makePerms is TOTALLY DIFFERENT from the function makePerm#
+# This one takes a dataframe and the permutation cycle-form representations for the generators,#
+# and returns a dataframe completely filled in with permutation representations for all the vertices#
+CA5.makePerms <- function(DF,rSana = "(12345)", fSana = "(12)(34)"){#
+    for (i in (1:nrow(DF))){#
+        DF$perm[i] <- CA5.makePerm(DF,DF$sana[i],"I",rSana,fSana)#
+        DF$label[i] <- DF$perm[i] # This will work for now but once you make perms you can never go back#
+    }#
+    return (DF)#
+}#
+##############################################
+ A5DF <- CA5.makePerms(A5DF)#
+# CA5.drawGraph(A5DF)#
+# findClosestVertex takes an x and y coordinate#
+# and unsurprisingly enough, finds the closest vertex to that position#
+# through the straightforward approach of calculating all the distances#
+CA5.findClosestVertex <- function(x,y){#
+    DF <- CA5.makeDataFrame()#
+    distsq <- numeric(6)#
+    for (i in 1:60){#
+        distsq[i] <- (DF[i,1]-x)^2+(DF[i,2]-y)^2#
+    }#
+    k <- which(distsq == min(distsq))#
+    stopifnot(length(k)==1)#
+    return(k)#
+}#
+# perms <- sapply(A5DF$sana,CA5.makePerm,DF=A5DF)#
+# perms
+#This should work for any set of characters#
+library(stringr)#
+Perm.apply <- function(x,perm){#
+  #If x is not in the permutation, nothing happens#
+  if (!str_detect(perm,x))#
+    return(x)#
+  #Otherwise locate it and find the next symbol#
+  pos <- str_locate(perm,x)#
+  #To extract a character, we get a one-character substring#
+  nextch <- str_sub(perm,pos+1,pos+1)#
+  #If it's numeric, we are done#
+  if (nextch != ")")#
+    return(nextch)#
+  #Otherwise back up to find the number at the start of the cycle#
+  while(str_sub(perm,pos-1,pos-1) != "(")#
+    pos <- pos-1#
+  return (str_sub(perm,pos,pos))#
+}#
+#Perm.apply("5",("(13)(245)"))#
+#Converts a vector of functtion values to cycle notation#
+#This is specific to permutations of the digits 1 through 9#
+#It will be reused in other apps#
+Perm.cycle.convert <- function(fval){#
+#We build the answer as a vector of characters#
+  cycles <- character(0)  #empty vector#
+  for (nextstart in c("1","2","3","4","5","6","7","8")) {#
+    m <- as.numeric(nextstart)  #convert to integer index#
+    if (m > length(fval)) break#
+    #If the symbol is unchanged or is already in a cycle, there is nothing to do#
+    if ((fval[m] == nextstart) || (nextstart %in% cycles)) next#
+    #Otherwise keep tracing through the cycle until we find the end#
+    nextch <- fval[m]#
+    cycles <- c(cycles,"(",nextstart,nextch) #start a new cycle#
+    nextch <- fval[as.numeric(nextch)]#
+    while (nextch != nextstart){#
+      cycles <- c(cycles,nextch)#
+      nextch <- fval[as.numeric(nextch)]#
+    }#
+    cycles <- c(cycles, ")")   #close the cycle#
+  }#
+  #Collapse the vector of cycles into a string    #
+  return(paste(cycles, sep = "", collapse=""))#
+}#
+#Perm.cycle.convert(c("2","4","3","1"))#
+#Compute the product ab of two permutations of the symbols "1" through "9"#
+Perm.multiply <- function(a,b){#
+  if (a == "I") return(b)#
+  if (b == "I") return(a)#
+  #Make a vector of the function values#
+  fval <- character(0)#
+  for (i in c("1","2","3","4","5","6","7","8","9")) {#
+    fval <- c(fval, Perm.apply(Perm.apply(i,b),a) )#
+  }#
+  #If input and output are equal we have the identity#
+  if (sum(fval != "1":"9") == 0) return("I")#
+  #Otherwise generate cycle notation#
+  return(Perm.cycle.convert(fval))#
+}#
+#Perm.multiply("(123)","(12)(34)")#
+#Makes a list of powers separated by HTML line breaks#
+Perm.powerString <- function(perm) {#
+  power <- perm#
+  result <- perm#
+  while (power != "I") {#
+    power <- Perm.multiply(power,perm)#
+    result <- paste(result,power,sep = "<br/>")#
+  }#
+  return(result)#
+}#
+#Perm.powerString("(13542)")#
+#Finds the inverse by stopping when the next power is the identity#
+Perm.inverse <- function(perm) {#
+  power <- perm#
+  while (TRUE) {#
+    if (Perm.multiply(power,perm) == "I")#
+      return(power)#
+    power <- Perm.multiply(power,perm)#
+  }#
+}#
+#Perm.inverse("(123)(4689)")#
+#Forms the conjugate aba^(-1)#
+Perm.conjugate <- function(a,b) {#
+  Perm.multiply(a,Perm.multiply(b, Perm.inverse(a)))#
+}#
+#Perm.conjugate("(24)(567)","(123)(4689)")
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+#The user interface#
+header <- dashboardHeader(title = "Cayley Graph for Group A5 (Dodecahedron)",#
+                          titleWidth = 600#
+                          )#
+sidebar <- dashboardSidebar(disable = TRUE)#
+#Functions that implement the mathematics#
+source("cayleya5calc.R")#
+# dashboard functions#
+body <- dashboardBody(#
+    column(#
+        width = 3,#
+        h3("Multiplication", style=kahua.s),#
+        h4("Defining relations:", style=kahua),#
+        div(HTML(paste(Leerraum(4),CA5.manifestWord("rrrrr")," = I<br>",Leerraum(7),CA5.manifestWord("ff")," = I<br>",Leerraum(3),CA5.manifestWord("frfrfr")," = I",sep="")),style=kahua.s),#
+        h4("Rewrite rules:", style=kahua),                 #
+        p(HTML(paste(Leerraum(7),CA5.manifestWord("ff")," &#8658; I<br>",#
+                       Leerraum(6),CA5.manifestWord("frf")," &#8658; ",CA5.manifestWord("rrrrfrrrr"),"<br>",#
+                       Leerraum(3),CA5.manifestWord("frrrrf")," &#8658; ",CA5.manifestWord("rfr"),"<br>",#
+                       Leerraum(4),CA5.manifestWord("rfrrf")," &#8658; ",CA5.manifestWord("frrrfrrrr"),"<br>",#
+                       CA5.manifestWord("frrrfrrrf")," &#8658; ",CA5.manifestWord("rfrrrfr"),"<br>",#
+                       Leerraum(4),CA5.manifestWord("rrrrr")," &#8658; I",#
+                       sep="")),style=kahua.s),#
+        actionBttn("btnright","Select right operand (red)",style="jelly",color="danger"),#
+        uiOutput("right"),#
+        actionBttn("btnleft","Select left operand (green)",style="jelly",color="success"),#
+        uiOutput("left"),#
+        actionBttn("btncalc","Calculate the product (purple)",style="jelly",color="royal"),#
+        uiOutput("prod"),#
+        uiOutput("message")#
+    ),#
+    column(#
+        width = 6,#
+        h2("The Cayley Graph", align="center", style = kahua.s),#
+        div(HTML(paste("Labeling rule: no ",CA5.manifestWord("r")," to the left of three ",CA5.manifestWord("f"),"<br>",#
+                       "Labeling rule: two ", CA5.manifestWord("f")," appear only as ",CA5.manifestWord("frrrf"),"<br>",#
+                       "Labeling rule: three ",CA5.manifestWord("f")," appear only as ",CA5.manifestWord("frrfrrrf"),#
+                       sep="")),style=kahua),#
+        plotOutput("cayley",height = 768, click = "plot_click"),#
+#        uiOutput("message")#
+    ),#
+    column(#
+        width = 3,#
+        h3("Permutations", align="center", style = kahua.s),#
+        selectInput("chooser",helpText("Choose",span("r", style = "color:royalblue; font-weight: bold"),span(": Order 5",style="font-size:initial"),style=kahua),c("(12345)","(13245)")),#
+        selectInput("choosef",helpText("Choose",span("f", style = "color:darkorange; font-weight: bold"),span(": Order 2",style="font-size:initial"),style=kahua),c("(12)(34)","(12)(35)","(12)(45)","(13)(45)","(23)(45)")),#
+        actionBttn("makeperm","Make Permutations",style="jelly")#
+    )#
+)#
+ui <- dashboardPage(header, sidebar, body)#
+#Variables that are shared among server functions#
+A5DF <- CA5.makeDataFrame()#
+oldrightop <- rightop <- "" # we're going to store the previous value for the right operand#
+oldleftop <- leftop <- ""   # as well as both old and new values for the left operand as well#
+product <- ""#
+rperm <- "(12345)" # our default r #
+fperm <- "(12)(34)" # our default f#
+#chooseRight <- TRUE#
+opchoice <- "" # I replaced the chooseRight boolean with a flag that can be "L", "R", or "".#
+               # This way you can't start accidentally marking vertices without having pushed a button#
+               # It also lets us reset the colors of vertices once we're done looking at the product#
+               # or when we change one of the factors#
+#Functions that read the input and modify the output and input#
+server <- function(session, input, output) {#
+    #Initialization#
+    output$cayley <- renderPlot(CA5.drawGraph(A5DF)) #
+#Set a flag so we know how to use the next mouse click#
+  observeEvent(input$btnleft,{#
+    output$message <- renderUI(h3("Click on a vertex"))#
+    opchoice <<- "L"#
+  })#
+  observeEvent(input$btnright,{#
+    output$message <- renderUI(h3("Click on a vertex"))#
+    opchoice <<- "R"#
+  })#
+#Use the mouse click to select a vertex#
+  observeEvent(input$plot_click,{#
+    i <- CA5.findClosestVertex(input$plot_click$x,input$plot_click$y)#
+    if (opchoice == "R"){#
+      oldrightop <<- rightop#
+      rightop <<- A5DF$sana[i]#
+      output$right <- renderUI(h3(HTML(CA5.manifestWord(rightop))))#
+      oldi <- which(A5DF$sana == oldrightop)#
+      A5DF <<- CA5.markVertex(A5DF,oldi,"lightgray") # first reset the old right operand#
+      A5DF <<- CA5.markVertex(A5DF,product,"lightgray") # also reset the product#
+      A5DF <<- CA5.markVertex(A5DF,i,"orangered") # color the vertex for the new right operand#
+      output$message <- renderUI("")#
+    }#
+    if (opchoice=="L"){#
+      oldleftop <<- leftop # remember the previous left operand#
+      leftop <<- A5DF[i,]$sana # find the new left operand#
+      output$left <- renderUI(h3(HTML(CA5.manifestWord(leftop)))) # tell user what generator word applies#
+      oldi <- which(A5DF$sana == oldleftop) # we are going need to figure out what to recolor#
+      A5DF <<- CA5.markVertex(A5DF,oldi,"lightgray")#
+      A5DF <<- CA5.markVertex(A5DF,product,"lightgray")#
+      A5DF <<- CA5.markVertex(A5DF,i,"darkturquoise")#
+      output$message <- renderUI("")#
+    }#
+    #Redraw the graph to show the selected vertex#
+    output$cayley <- renderPlot(CA5.drawGraph(A5DF))#
+  })									  #
+#Multiply the selected group elements#
+  observeEvent(input$btncalc,{#
+    output$message <- renderUI("")#
+    product <<- CA5.multiply(leftop,rightop)#
+    msg <- paste0("The product is ",CA5.manifestWord(leftop),CA5.manifestWord(rightop)," which simplifies to ",CA5.manifestWord(product),".")#
+    output$prod <- renderUI(h3(HTML(msg)))#
+    A5DF <<- CA5.markVertex(A5DF,product,"slateblue")#
+    #Redraw the graph to show the result#
+    output$cayley <- renderPlot(CA5.drawGraph(A5DF))#
+  })#
+#This depends on three inputs but responds only to the button#
+  observeEvent(input$makeperm,{#
+    A5DF <<- CA5.makePerms(A5DF,r=input$chooser,f=input$choosef) # consider radio buttons instead of drop-down menu#
+    output$cayley <- renderPlot(CA5.drawGraph(A5DF,permlabel=TRUE))    #
+  })							  #
+}#
+#Run the app#
+shinyApp(ui = ui, server = server)
+header <- dashboardHeader(title = "Euler Walks",
+# Fleury's Algorithm#
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+#
+header <- dashboardHeader(title = "Euler Walks",#
+                          titleWidth = 600#
+                          )#
+source("FleurysWalk.R")#
+#
+body <- dashboardBody(#
+    column(#
+        width = 3,#
+        h3("Number of vertices"),#
+        h4("Defining relations:", style=kahua),#
+        actionBttn("btnright","Generate New Graph"),#
+#        uiOutput("right"),#
+    ),#
+    column(#
+        width = 6,#
+        h2("This graph permits an Euler walk"),#
+        plotOutput("cayley",height = 768, click = "plot_click"),#
+#        uiOutput("message")#
+#
+    ),#
+)#
+ui <- dashboardPage(header, sidebar, body)#
+#Run the app#
+shinyApp(ui = ui, server = server)
+# Fleury's Algorithm#
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+#
+header <- dashboardHeader(title = "Euler Walks",#
+                          titleWidth = 600#
+                          )#
+source("FleurysWalk.R")#
+#
+body <- dashboardBody(#
+    column(#
+        width = 3,#
+        h3("Number of vertices"),#
+        actionBttn("btnright","Generate New Graph"),#
+#        uiOutput("right"),#
+    ),#
+    column(#
+        width = 6,#
+        h2("This graph permits an Euler walk"),#
+        plotOutput("cayley",height = 768, click = "plot_click"),#
+#        uiOutput("message")#
+#
+    ),#
+)#
+ui <- dashboardPage(header, sidebar, body)#
+#Run the app#
+shinyApp(ui = ui, server = server)
+#This should work for any set of characters#
+library(stringr)#
+Perm.apply <- function(x,perm){#
+  #If x is not in the permutation, nothing happens#
+  if (!str_detect(perm,x))#
+    return(x)#
+  #Otherwise locate it and find the next symbol#
+  pos <- str_locate(perm,x)#
+  #To extract a character, we get a one-character substring#
+  nextch <- str_sub(perm,pos+1,pos+1)#
+  #If it's numeric, we are done#
+  if (nextch != ")")#
+    return(nextch)#
+  #Otherwise back up to find the number at the start of the cycle#
+  while(str_sub(perm,pos-1,pos-1) != "(")#
+    pos <- pos-1#
+  return (str_sub(perm,pos,pos))#
+}#
+#Perm.apply("5",("(13)(245)"))#
+#undebug(Perm.apply)#
+#Converts a vector of function values to cycle notation#
+#This is specific to permutations of the digits 1 through 9#
+#It will be reused in other apps#
+Perm.cycle.convert <- function(fval){#
+#We build the answer as a vector of characters#
+  cycles <- character(0)  #empty vector#
+  for (nextstart in c("1","2","3","4","5","6","7","8")) {#
+    m <- as.numeric(nextstart)  #convert to integer index#
+    if (m > length(fval)) break#
+    #If the symbol is unchanged or is already in a cycle, there is nothing to do#
+    if ((fval[m] == nextstart) || (nextstart %in% cycles)) next#
+    #Otherwise keep tracing through the cycle until we find the end#
+    nextch <- fval[m]#
+    cycles <- c(cycles,"(",nextstart,nextch) #start a new cycle#
+    nextch <- fval[as.numeric(nextch)]#
+    while (nextch != nextstart){#
+      cycles <- c(cycles,nextch)#
+      nextch <- fval[as.numeric(nextch)]#
+    }#
+    cycles <- c(cycles, ")")   #close the cycle#
+  }#
+  #Collapse the vector of cycles into a string    #
+  return(paste(cycles, sep = "", collapse=""))#
+}#
+#undebug(Perm.cycle.convert)#
+#Perm.cycle.convert(c("2","4","3","1"))#
+#Compute the product ab of two permutations of the symbols "1" through "9"#
+Perm.multiply <- function(a,b){#
+  if (a == "I") return(b)#
+  if (b == "I") return(a)#
+  #Make a vector of the function values#
+  fval <- character(0)#
+  for (i in c("1","2","3","4","5","6","7","8","9")) {#
+    fval <- c(fval, Perm.apply(Perm.apply(i,b),a) )#
+  }#
+  #If input and output are equal we have the identity#
+  if (sum(fval != "1":"9") == 0) return("I")#
+  #Otherwise generate cycle notation#
+  return(Perm.cycle.convert(fval))#
+}#
+#Perm.multiply("(123)","(12)(34)")#
+#undebug(Perm.multiply)#
+#Makes a list of powers separated by HTML line breaks#
+Perm.powerString <- function(perm) {#
+  power <- perm#
+  result <- perm#
+  while (power != "I") {#
+    power <- Perm.multiply(power,perm)#
+    result <- paste(result,power,sep = "<br/>")#
+  }#
+  return(result)#
+}#
+#Finds the inverse by stopping when the next power is the identity#
+Perm.inverse <- function(perm) {#
+  power <- perm#
+  while (TRUE) {#
+    if (Perm.multiply(power,perm) == "I")#
+      return(power)#
+    power <- Perm.multiply(power,perm)#
+  }#
+}#
+Perm.inverse("(123)(4689)")#
+#Forms the conjugate aba^(-1)#
+Perm.conjugate <- function(a,b) {#
+  Perm.multiply(a,Perm.multiply(b, Perm.inverse(a)))#
+}#
+Perm.conjugate("(24)(567)","(123)(4689)")
+#Functions to create neatly-spaced rows of buttons#
+buttonRow1 <- function(inputIds, labels, btnStyle) {#
+  fluidRow(#
+    column(2,offset = 4,#
+           actionButton(inputId = inputIds[1], label =  labels[1],style=btnStyle)),#
+  ) #row#
+}#
+buttonRow2 <- function(inputIds, labels, btnStyle) {#
+  fluidRow(#
+    column(2,offset = 2,#
+           actionButton(inputId = inputIds[1], label =  labels[1],style=btnStyle)),#
+    column(2,offset = 2,#
+           actionButton(inputId = inputIds[2], label =  labels[2],style=btnStyle))#
+  ) #row#
+}#
+buttonRow3 <- function(inputIds, labels, btnStyle) {#
+  fluidRow(#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[1], label =  labels[1],style=btnStyle)),#
+    column(1,offset = 2,#
+           actionButton(inputId = inputIds[2], label =  labels[2],style=btnStyle)),#
+    column(1,offset = 2,#
+           actionButton(inputId = inputIds[3], label =  labels[3],style=btnStyle))#
+  ) #row#
+}#
+buttonRow4 <- function(inputIds, labels, btnStyle) {#
+  fluidRow(#
+    column(2,offset = 1,#
+           actionButton(inputId = inputIds[1], label =  labels[1],style=btnStyle)),#
+    column(2,offset = 1,#
+           actionButton(inputId = inputIds[2], label =  labels[2],style=btnStyle)),#
+    column(2,offset = 1,#
+           actionButton(inputId = inputIds[3], label =  labels[3],style=btnStyle)),#
+    column(2,offset = 1,#
+           actionButton(inputId = inputIds[4], label =  labels[4],style=btnStyle))#
+  ) #row#
+}#
+buttonRow5 <- function(inputIds, labels, btnStyle) {#
+  fluidRow(#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[1], label =  labels[1],style=btnStyle)),#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[2], label =  labels[2],style=btnStyle)),#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[3], label =  labels[3],style=btnStyle)),#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[4], label =  labels[4],style=btnStyle)),#
+    column(1,offset = 1,#
+           actionButton(inputId = inputIds[5], label =  labels[5],style=btnStyle))#
+  ) #row#
+}#
+#Functions to create neatly-spaced rows of placeholders for buttons#
+controlRow1 <- function(ctrlId) {#
+  fluidRow(#
+    column(2,offset = 4,#
+           uiOutput(outputId = ctrlId)#
+    )#
+  ) #row#
+}#
+controlRow2 <- function(ctrlIds) {#
+  fluidRow(#
+    column(2,offset = 2,#
+           uiOutput(outputId = ctrlIds[1])#
+    ),#
+    column(2,offset = 2,#
+           uiOutput(outputId = ctrlIds[2])#
+    )#
+  ) #row#
+}#
+controlRow3 <- function(ctrlIds) {#
+  fluidRow(#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[1])#
+    ),#
+    column(1,offset = 2,#
+           uiOutput(outputId = ctrlIds[2])#
+    ),#
+    column(1,offset = 2,#
+           uiOutput(outputId = ctrlIds[3])#
+    ),#
+  ) #row#
+}#
+controlRow4 <- function(ctrlIds) {#
+  fluidRow(#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[1])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[2])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[3])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[4])#
+    )#
+  ) #row#
+}#
+controlRow5 <- function(ctrlIds) {#
+  fluidRow(#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[1])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[2])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[3])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[4])#
+    ),#
+    column(1,offset = 1,#
+           uiOutput(outputId = ctrlIds[5])#
+    )#
+  ) #row#
+}
+#a4calc.R#
+#
+makeD6data <- function(output) {#
+  N <- 12#
+  DF <- data.frame(button=character(N),#
+                   perm =character(N),color=character(N),stringsAsFactors= FALSE)#
+  DF[1,] <- c("btn2635","(26)(35)","gray90")#
+    DF[2,] <- c("btn123645","(12)(36)(45)","gray90")#
+   DF[3,] <- c("btn1346","(13)(46)","gray90")#
+  DF[4,] <- c("btn142356","(14)(23)(56)","gray90") #
+  DF[5,] <- c("btn162534","(16)(25)(34)","gray90")#
+    DF[6,] <- c("btn1524","(15)(24)","gray90")#
+  DF[7,] <- c("btn165432","(165432)","gray90")#
+    DF[8,] <- c("btn153264","(153)(264)","gray90")#
+     DF[9,] <- c("btn142536","(14)(25)(36)","gray90")#
+  DF[10,] <- c("btn135246","(135)(246)","gray90")#
+  DF[11,] <- c("btn123456","(123456)","gray90")#
+  DF[12,] <- c("btnI","I","gray90")#
+  return(DF)#
+}#
+#
+DF <- makeD6data()
+#GroupD6#
+setwd('/Users/hyeongjihyeon/OneDrive - nyu.edu/Dashboard/A4Calc')#
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+source("buttonrows.R")#
+ui <- dashboardPage(#
+    dashboardHeader(title = "Group D6, rotational symmetries of the hexagon",#
+                    titleWidth = 500),#
+    dashboardSidebar(disable = TRUE),#
+    dashboardBody(#
+        fluidRow(#
+            column(width=4,#
+                   box(#
+                       width = NULL,#
+                       height = 450,#
+                       h3 ("Elements of the group"),#
+                       h4("The identity"),#
+                       controlRow1("ctrlI"),#
+                       h4("Order 6 elements (rotations through 60 degrees)"),#
+                       controlRow4(#
+                           c("ctrl123456", "ctrl135246", "ctrl142536")#
+                       ),   #
+                       controlRow4(#
+                           c( "ctrl153264", "ctrl165432")#
+                       ),   #
+                       h4("Order 2 elements (flips through 180 degrees)"),#
+                       controlRow3(#
+                           c("ctrl2635", "ctrl123645", "ctrl1346")#
+                       ),#
+                       controlRow3(#
+                           c("ctrl142356", "ctrl162534", "ctrl1524")#
+                       ),#
+                   ),#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Subgroups",#
+                         buttonRow3(#
+                           inputIds = c("btnC2", "btnC3", "btnC6"),#
+                           labels = list("Show C2", "ShowC3", "ShowC6"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )   #
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Cosets",#
+                         buttonRow2(#
+                           inputIds = c("btnLC", "btnRC"),#
+                           labels = list("Left Cosets", "Right Cosets"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )  #agb#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Conjugate Subgroup",#
+                         buttonRow2(#
+                           inputIds = c("btnmark", "btnconj"),#
+                           labels = list("Select a", "Generate Subgroup"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("conjmsg"))#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Generate a Subgroup",#
+                         buttonRow4(#
+                           inputIds = c("btnmarkgena", "btnmarkgenb", "btngen", "btnclear"),#
+                           labels = list("Generator a", "Generator b","Generate","Clear"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("genmsg"))#
+                       )#box#
+            ),#
+            #col#
+            column(#
+                width = 8,#
+                box(#
+                  width = NULL,#
+                  height = 380,#
+                  fluidRow(#
+                    column(#
+                      width = 8,#
+                      h3("Inputs and Products"),#
+                      htmlOutput("results"),#
+                      tags$head(tags$style("#results{color:red; font-size:20px; font-style:italic; #
+overflow-y:scroll; max-height: 300px; background: ghostwhite;}"))#
+                    ),#
+                    column(#
+                      width = 4,#
+                      actionBttn("reset", "Clear Inputs and Products")#
+                    )#
+                  )#
+                ),#
+                box(width = NULL,#
+                    height = 430,#
+                    tableOutput("multable")#
+                )#
+            )#
+        )  #fluid#
+    )  #
+)#
+source("d6calc.R")#
+source("permutecalc.R")#
+#Global variables accessible to server()#
+N <- 12#
+D6DF <- makeD6data()#
+#colors for cosets#
+color.list <- c("pink","aquamarine","beige","hotpink", "violet")#
+#Output to display in the text box#
+result.list <- ""#
+#Result of all multiplications so far#
+product <- "I"#
+subgroup <- numeric(0)#
+conjugating <- FALSE#
+generating <- 0#
+a <-"I"#
+gena <- "I"#
+genb <- "I"#
+#Computes a product as specified by "a" and "b" in vector v#
+evaluate <- function(v,a,b) {#
+  result <- "I"#
+  for (i in 1:length(v)){#
+    result <- Perm.multiply(result,ifelse(v[i]=="a",a,b))#
+  }#
+  return (result)#
+}#
+server <- function(input, output, session) {#
+  #Elements in the chosen subgroup#
+  displayButton <- function(i) {#
+    renderUI({actionButton(D6DF[i,1],D6DF[i,2],#
+                           style=paste("padding:4px;#
+                   font-size:120%;background:",D6DF[i,3]))}) #
+  }#
+  #show all the buttons#
+  showButtons <- function() {#
+    output$ctrl2635 <- displayButton(1)#
+    output$ctrl123645<- displayButton(2)                                     #
+    output$ctrl1346<- displayButton(3)#
+    output$ctrl142356<- displayButton(4)#
+    output$ctrl162534 <- displayButton(5)#
+    output$ctrl1524<- displayButton(6)                                     #
+    output$ctrl165432<- displayButton(7)#
+    output$ctrl153264<- displayButton(8)#
+    output$ctrl142536 <- displayButton(9)#
+    output$ctrl135246<- displayButton(10)                                     #
+    output$ctrl123456<- displayButton(11)#
+    output$ctrlI<- displayButton(12)#
+  }#
+  showButtons()#
+  #Display the multiplication table#
+  tbl <- outer(D6DF[,2],D6DF[,2],Vectorize(Perm.multiply,c("a","b")))#
+  colnames(tbl) <- D6DF[,2]#
+  rownames(tbl) <- D6DF[,2] #
+  output$multable <- renderTable(tbl,rownames = TRUE)#
+#Multiplies by a specified permutation and displays all calculations so far#
+    compute.and.show <- function(perm){#
+      if (conjugating) {#
+        a <<- perm#
+        output$conjmsg <- renderUI(paste0("Conjugating by element ",perm,collapse=""))#
+        conjugating <<- FALSE#
+        return()#
+      }#
+      if (generating==1) {#
+        gena <<- perm#
+        output$genmsg <- renderUI(paste0("Generating with element ",gena,collapse=""))#
+        return()#
+      }#
+      if (generating==2) {#
+        genb <<- perm#
+        output$genmsg <- #
+          renderUI(paste0("Generating with elements ",gena," and ", genb,collapse=""))#
+        return()#
+      }#
+      product <<- Perm.multiply(perm,product)#
+      line.out <- paste(perm,product,sep = "&emsp;")#
+      result.list <<- paste(result.list, line.out, "<br/>")#
+      output$results<-renderUI(HTML(result.list))#
+    }#
+    #Marks all elements in a subgroup with a color#
+    mark.subgroup <- function() {#
+      for (i in 1:N){#
+        D6DF$color[i] <<- ifelse(i  %in% subgroup,"yellow","gray90")#
+      }#
+    }#
+#Event handlers for all the element buttons #
+    observeEvent(input$btnI,{#
+      compute.and.show("I")#
+    })#
+    observeEvent(input$btn2635,{#
+       compute.and.show("(26)(35)")#
+    })#
+    observeEvent(input$btn123645,{#
+      compute.and.show("(12)(36)(45)")#
+    })#
+    observeEvent(input$btn1346,{#
+      compute.and.show("(13)(46)")#
+    })#
+    observeEvent(input$btn142356,{#
+      compute.and.show("(14)(23)(56)")#
+    })#
+    observeEvent(input$btn162534,{#
+      compute.and.show("(16)(25)(34)")#
+    })#
+    observeEvent(input$btn1524,{#
+      compute.and.show("(15)(24)")#
+    })#
+    observeEvent(input$btn165432,{#
+      compute.and.show("(165432)")#
+    })#
+    observeEvent(input$btn153264,{#
+      compute.and.show("(153)(264)")#
+    })#
+    observeEvent(input$btn142536,{#
+        compute.and.show("(14)(25)(36)")#
+    })#
+    observeEvent(input$btn135246,{#
+      compute.and.show("(135)(246)")#
+    })#
+    observeEvent(input$btn123456,{#
+      compute.and.show("(123456)")#
+    })#
+#The reset button clears the output and reinitializes the product#
+    observeEvent(input$reset,{#
+        result.list <<- ""#
+        product <<- "I"#
+        output$results<-renderUI(HTML(result.list))#
+    })#
+#Event handlers for the subgroup buttons#
+    observeEvent(input$btnC2,{#
+      subgroup <<- c(1,9, 12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC3,{#
+      subgroup <<- c(8,10,12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC6,{#
+      subgroup <<- c(7:12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    #Event handler for left cosets#
+    observeEvent(input$btnLC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[in.coset,2],D6DF[j,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    #Right cosets work the same way#
+    observeEvent(input$btnRC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[j,2],D6DF[in.coset,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    observeEvent(input$btnmark,{#
+      conjugating <<- TRUE#
+      output$conjmsg <- renderUI("Click the button for the desired element a")#
+    })#
+    observeEvent(input$btnmarkgena,{#
+      generating <<- 1#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator a")#
+    })#
+    observeEvent(input$btnmarkgenb,{#
+      generating <<- 2#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator b")#
+    })#
+    #Generate random sequences of generators.#
+    #If we generate more than half the group, it's the entire group#
+    #This algorithm could turn out to be inefficient,and in principle it can fail#
+    observeEvent(input$btngen,{#
+      subgroup <<- numeric(0)#
+      for (j in 1:(4*N)) {#
+        v <- sample(c("a","b"),sample(7:10,1),replace = TRUE)#
+        element <- evaluate(v,gena,genb)#
+        k <- which(D6DF[,2] == element)[1]#
+        if(!(k %in% subgroup)){#
+          subgroup <<- c(subgroup,k)#
+          D6DF[k,3] <<- "yellow"#
+        }#
+        #If subgroup has more than N/2 elements, it's the entire group#
+        if (length(subgroup) > N/2){#
+          subgroup <<- 1:N#
+          break#
+        } #
+      }  #
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- #
+        renderUI(paste0("The subgroup generated by ",gena," and ", genb," is now yellow"))#
+    })#
+    observeEvent(input$btnclear,{#
+      subgroup <<- rep(FALSE,N)#
+      generating <<- 0#
+      gena <<- "I"#
+      genb <<- "I"#
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- renderUI("")#
+    })#
+    observeEvent(input$btnconj,{#
+      aInv <- Perm.inverse(a)#
+      D6DF[,3] <<- rep("gray90",N)#
+      for (j in 1:N) {#
+        if (j %in% subgroup){#
+          element <- Perm.conjugate(a,D6DF[j,2])#
+          k <- which(D6DF[,2] == element)[1]#
+          D6DF[k,3] <<- "pink"#
+        }#
+      }  #
+      showButtons()#
+      output$conjmsg <- renderUI(paste0("The subgroup ",a,"H",aInv," is now pink"))#
+    })}#
+# Run the application #
+shinyApp(ui = ui, server = server)
+#D4calc.R - Symmetries of the square#
+#
+D4.makeDataFrame <- function() {#
+  DF <- data.frame(name=rep("",8),ABCD=rep("",8),stringsAsFactors = FALSE)#
+  DF[1,] <- c("i","ABCD")#
+  DF[2,] <- c("r90","DABC")#
+  DF[3,] <- c("r180","CDAB")#
+  DF[4,] <- c("r270","BCDA")#
+  DF[5,] <- c("h","DCBA")#
+  DF[6,] <- c("v","BADC")#
+  DF[7,] <- c("d","CBAD")#
+  DF[8,] <- c("d'","ADCB")#
+  return(DF)#
+}#
+#
+DF <- D4.makeDataFrame()#
+D4.showConfigs <- function(DF) {#
+  par(mar=c(1,1,1,1))#
+  plot(NULL,xlim=c(0,24),ylim = c(-1,3), asp = 1, axes = FALSE)#
+  for (i in 0:7) {#
+    points(c(0,2,2,0,0)+3*i,c(0,0,2,2,0),type = "l")    #
+    lbl <- strsplit(DF[i+1,2],"")[[1]]#
+#
+    text(c(0.25,1.75,1.75,0.25)+3*i,c(1.75,1.75,0.25,0.25),lbl)#
+    text(1+3*i,-0.5,DF[i+1,1])#
+    segments(c(12,16,18,23),c(1,0,0,0),#
+             c(14,16,20,21),#
+             c(1,2,2,2),lty = 2)#
+  }#
+}#
+D4.showConfigs(DF)#
+#
+#ABCD is a string of symbols, reading counterclockwise from the left-top#
+D4.showSquare <- function(ABCD){#
+  par(mar=c(1,1,1,1))#
+  plot(NULL,xlim=c(0,3),ylim = c(-1,2), asp = 1, axes = FALSE)#
+  points(c(0,2,2,0,0),c(0,0,2,2,0),type = "l", lwd = 2)#
+  lbl <- strsplit(ABCD,"")[[1]]#
+  text(c(0.25,1.75,1.75,0.25),c(1.75,1.75,0.25,0.25),lbl)#
+}#
+D4.showSquare("ABCD")#
+#
+#a is one of the Biggs symbols for an operation#
+#
+#The return value is the new configuration#
+D4.apply <- function(a,ABCD){#
+  v <-strsplit(ABCD,"")[[1]]#
+  w <- switch(a,#
+              "i" = v,#
+              "r90" = c(v[4], v[1], v[2], v[3]),#
+              "r180" = c(v[3], v[4], v[1], v[2]),#
+              "r270" = c(v[2], v[3], v[4], v[1]),#
+              "h" = c(v[4], v[3], v[2], v[1]),#
+              "v" = c(v[2], v[1], v[4], v[3]),#
+              "d" = c(v[3], v[2], v[1], v[4]),#
+              "d'" = c(v[1], v[4], v[3], v[2]),#
+  )#
+  s <- paste(w,sep="",collapse="")#
+  return(s)#
+}#
+D4.multiply <- function(DF,a,b){#
+  #Look up the name#
+  idx <- which(DF$name==b)[1]#
+  #Find the corresponding configuration#
+  ABCD <- DF$ABCD[idx]#
+  #Apply the group operation to it#
+  newABCD <- D4.apply(a,ABCD)#
+ # Look up the configuration#
+  idx <- which(DF$ABCD==newABCD)[1]#
+  return (DF$name[idx])#
+}#
+vD4.multiply <- Vectorize(D4.multiply,c("a","b"))
+#a4calc.R#
+#
+makeA4data <- function(output) {#
+  N <- 12#
+  DF <- data.frame(button=character(N),#
+                   perm =character(N),color=character(N),stringsAsFactors= FALSE)#
+  DF[1,] <- c("btn2413","(13)(24)","gray90")#
+  DF[2,] <- c("btn2314","(14)(23)","gray90")#
+  DF[3,] <- c("btn3412","(12)(34)","gray90")#
+  DF[4,] <- c("btn234","(234)","gray90")#
+  DF[5,] <- c("btn243","(243)","gray90")#
+  DF[6,] <- c("btn134","(134)","gray90")#
+  DF[7,] <- c("btn143","(143)","gray90")#
+  DF[8,] <- c("btn124","(124)","gray90")#
+  DF[9,] <- c("btn142","(142)","gray90")#
+  DF[10,] <- c("btn123","(123)","gray90")#
+  DF[11,] <- c("btn132","(132)","gray90")#
+  DF[12,] <- c("btnI","I","gray90")#
+  return(DF)#
+}#
+#
+#DF <- makeA4data()
+#Starter file for any Shiny dashboard app#
+#This should replace the default app.r that displays Old Faithful data#
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+library(DT)#
+setwd('/Users/hyeongjihyeon/OneDrive - nyu.edu/Dashboard/D4Calc')#
+#The user interface#
+header <- dashboardHeader(title = "D4 According to Biggs")#
+sidebar <- dashboardSidebar(#
+  width = 110,#
+  actionButton("btninit", "Initialize"),#
+  actionButton("btni","Apply i"),#
+  actionButton("btnr90","Apply r90"),#
+  actionButton("btnr180","Apply r180"),#
+  actionButton("btnr270","Apply r270"),    #
+  actionButton("btnh","Apply h"),#
+  actionButton("btnv","Apply v"),#
+  actionButton("btnd","Apply d"),#
+  actionButton("btnd'","Apply d'")#
+)#
+body <- dashboardBody(#
+  fluidRow(#
+    column(#
+      width = 12,#
+      plotOutput("configs", height =200)#
+    )#
+  ),#
+  fluidRow(#
+    column(#
+      width = 6,#
+      plotOutput("square", height = 300)#
+    ),#
+    column(#
+      width = 6,#
+      dataTableOutput("multable")#
+    )#
+  )#
+)#
+ui <- dashboardPage(header, sidebar, body)#
+#
+#Functions that implement the mathematics#
+source("d4calc.R")#
+#
+#Variables that are shared among server functions#
+D4DF <- D4.makeDataFrame()#
+config <- "ABCD"#
+#
+#Functions that read the input and modify the output and input#
+server <- function(session, input, output) {#
+    #Initialization#
+  output$configs <- renderPlot(D4.showConfigs(D4DF))#
+  output$square <- renderPlot(D4.showSquare(config))#
+  tbl <-outer(D4DF$name,D4DF$name,vD4.multiply,DF=D4DF)#
+  colnames(tbl) <- D4DF$name#
+  rownames(tbl) <- D4DF$name#
+  #Use options to suppress the fancy controls#
+  output$multable <- renderDataTable(tbl, options = list(dom = "t"))#
+    #Functions that respond to events in the input#
+  observeEvent(input$btninit,{#
+    config <<- "ABCD"#
+    output$square <- renderPlot(D4.showSquare(config))#
+  })#
+#
+  observeEvent(input$btni,{#
+      config <<- D4.apply("i",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btnr90,{#
+      config <<- D4.apply("r90",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btnr180,{#
+      config <<- D4.apply("r180",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btnr270,{#
+      config <<- D4.apply("r270",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })      #
+  observeEvent(input$btnh,{#
+      config <<- D4.apply("h",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btnv,{#
+      config <<- D4.apply("v",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btnd,{#
+      config <<- D4.apply("d",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+  observeEvent(input$btndd,{#
+      config <<- D4.apply("d'",config)#
+      output$square <- renderPlot(D4.showSquare(config))#
+  })#
+}#
+#
+#Run the app#
+shinyApp(ui = ui, server = server)
+g <- disjoint_union(make_full_graph(5), make_full_graph(5))
+clu <- components(g)$membership
+g <- add_edges(g, c(match(1, clu), match(2, clu)) )
+# Generate the two groups of singular values with # Gaussian mixture of two components that have different means sing.vals <- c( rnorm (10, mean=1, sd=1), rnorm(10, mean=3, sd=1) ) dim.chosen <- dim_select(sing.vals) dim.chosen # Sample random vectors with multivariate normal distribution # and normalize to unit length lpvs <- matrix(rnorm(200), 10, 20) lpvs <- apply(lpvs, 2, function(x) { (abs(x) / sqrt(sum(x^2))) }) RDP.graph <- sample_dot_product(lpvs) dim_select( embed_adjacency_matrix(RDP.graph, 10)$D ) # Sample random vectors with the Dirichlet distribution lpvs.dir <- sample_dirichlet(n=20, rep(1, 10)) RDP.graph.2 <- sample_dot_product(lpvs.dir) dim_select( embed_adjacency_matrix(RDP.graph.2, 10)$D ) # Sample random vectors from hypersphere with radius 1. lpvs.sph <- sample_sphere_surface(dim=10, n=20, radius=1) RDP.graph.3 <- sample_dot_product(lpvs.sph) dim_select( embed_adjacency_matrix(RDP.graph.3, 10)$D )
+g1 <- make_star(10, mode="undirected")#
+V(g1)$name <- letters[1:10]#
+g2 <- make_ring(10)#
+V(g2)$name <- letters[11:20]#
+print_all(g1 %du% g2)
+duplicated_graph2 <- graph2
+n_edges = 6#
+node_names = c(1:n_edges)#
+#
+#to make graph, we're going to create 'n_edges' edges between the nodes#
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes#
+#
+#create a graph using a data frame#
+#-------#
+set.seed(as.numeric(Sys.time()))#
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+edges_df
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names)
+dfgraph
+plot(dfgraph)
+duplicated_graph <- dfgraph
+make_ring(10) %>% add_edges(c(1,6)) %>% plot()
+make_ring(10) %>% add_edges(c(1,6)) %>% plot()
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) %>% plot()
+drawGraph <- function(n_edges) {	#
+	node_names = c(1:n_edges)#
+#
+	#to make graph, we're going to create 'n_edges' edges between the nodes#
+	all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes#
+#
+	#create a graph using a data frame#
+	#-------#
+	set.seed(as.numeric(Sys.time()))#
+	edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+	edges_df#
+#
+	dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) %>% plot()#
+	plot(dfgraph)#
+#
+	duplicated_graph <- dfgraph#
+}
+edges_df
+E(dfgraph)
+E(dfgraph)
+dfgraph
+node_names = c(1:n_edges)#
+#
+	#to make graph, we're going to create 'n_edges' edges between the nodes#
+	all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes#
+#
+	#create a graph using a data frame#
+	#-------#
+	set.seed(as.numeric(Sys.time()))#
+	edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+	edges_df#
+	dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) %>% plot()#
+	plot(dfgraph)
+node_names = c(1:n_edges)
+drawGraph(6)
+n_edges
+node_names = c(1:n_edges)
+node_names
+all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes
+all_possible_edges_df
+set.seed(as.numeric(Sys.time()))
+edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows
+edges_df
+dfgraph = graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) %>% plot()
+duplicated_graph <- dfgraph
+duplicated_graph <<- dfgraph
+E(dfgraph)
+dfgraph <<- graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) %>% plot()
+E(dfgraph)
+plot(dfgraph)
+E(dfgraph)
+drawGraph <- function(n_edges) {	#
+	node_names = c(1:n_edges)#
+#
+	#to make graph, we're going to create 'n_edges' edges between the nodes#
+	all_possible_edges_df = t(combn(node_names, m=2)) #find all possible combinations of the nodes#
+#
+	#create a graph using a data frame#
+	#-------#
+	set.seed(as.numeric(Sys.time()))#
+	edges_df = data.frame(all_possible_edges_df[sample(1:nrow(all_possible_edges_df), n_edges),], stringsAsFactors = FALSE) #randomly select 'n_edges' of these rows#
+	edges_df#
+	dfgraph <<- graph_from_data_frame(edges_df, directed = FALSE, vertices = node_names) #
+	plot(dfgraph)#
+	duplicated_graph <<- dfgraph#
+}
+drawGraph(6)
+dev.off()
+E(dfgraph)
+E(dfgraph)[1]
+E(dfgraph)[2]
+E(dfgraph)[3]
+E(dfgraph)[4]
+summary(E(dfgraph))
+str(E(dfgraph))

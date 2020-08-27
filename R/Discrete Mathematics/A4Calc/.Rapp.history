@@ -1,0 +1,2338 @@
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.326*SE,EV+2.326*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af_2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.6*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.6*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+summary(m_multi2_2)
+m_multi2_2<-glm(sum~(mc_rank_rate2+mc_sq_rank_rate2+new_freq+log(freq_freq+1)+log(recency+1)+log(wratio*100+1)+log(first_time2)+current+google+log(new+1)+game_time3)*update_yn+as.factor(title), family="binomial"(link="probit"),multi5)
+summary(m_multi2_2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_r)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2_r.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Random Model Graph ###
+str(summary(m_multi2_r))#
+length(summary(m_multi2_r)[[10]][1:41])#
+cbind(1:41,summary(m_multi2_r)[[10]][1:41]) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-summary(m_multi2_r)[[10]][n1]+summary(m_multi2_r)[[10]][n2]#
+se0<-diag(vcov(m_multi2_r))[n1]+diag(vcov(m_multi2_r))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_r)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_r)[32,32]*x^4+vcov(m_multi2_r)[31,31]*x^2+vcov(m_multi2_r)[13,13]+#
+2*(vcov(m_multi2_r)[32,31]*x^3+vcov(m_multi2_r)[32,13]*x^2+vcov(m_multi2_r)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2_r.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2_2))#
+cbind(1:41,coef(m_multi2_2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2_2)[n1]+coef(m_multi2_2)[n2]#
+se0<-diag(vcov(m_multi2_2))[n1]+diag(vcov(m_multi2_2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2_2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2_2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2_2)[32,32]*x^4+vcov(m_multi2_2)[31,31]*x^2+vcov(m_multi2_2)[13,13]+#
+2*(vcov(m_multi2_2)[32,31]*x^3+vcov(m_multi2_2)[32,13]*x^2+vcov(m_multi2_2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "99% CI"), lty=1:2)
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-2.576*SE,EV+2.576*SE)#
+dev.new()#
+#png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "99% CI"), lty=1:2)
+install.packages('rsconnect')
+library(rsconnect)#
+rsconnect::deployApp('path/to/your/app')
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+rsconnect::setAccountInfo(name="<ACCOUNT>", token="<TOKEN>", secret="<SECRET>")
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+library(rsconnect)
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+rsconnect::setAccountInfo
+rsconnect::setAccountInfo(name='jihyeonhyeong',#
+			  token='0C17F16C75FCAEB7B057D9E361586951',#
+			  secret='<SECRET>')
+)
+rsconnect::setAccountInfo(name='jihyeonhyeong',#
+			  token='0C17F16C75FCAEB7B057D9E361586951',#
+			  secret='<SECRET>')
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+## ui.R#
+#
+library(shiny)#
+#
+shinyUI(fluidPage(#
+#
+  # Application title#
+  titlePanel("Old Faithful Geyser Data"),#
+#
+  # Sidebar with a slider input for number of bins#
+  sidebarLayout(#
+    sidebarPanel(#
+      sliderInput("bins",#
+                  "Number of bins:",#
+                  min = 1,#
+                  max = 50,#
+                  value = 30)#
+    ),#
+#
+    # Show a plot of the generated distribution#
+    mainPanel(#
+      plotOutput("distPlot")#
+    )#
+  )#
+))#
+#
+## server.R#
+#
+library(shiny)#
+#
+shinyServer(function(input, output) {#
+#
+  output$distPlot <- renderPlot({#
+#
+    # generate bins based on input$bins from ui.R#
+    x    <- faithful[, 2]#
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)#
+#
+    # draw the histogram with the specified number of bins#
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')#
+#
+  })#
+#
+})
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+install.packages('installr')#
+#
+library(installr)#
+#
+updateR()
+install.packages('installr')
+install.packages('installr')#
+#
+library(installr)#
+#
+updateR()
+updateR()
+install.packages('installer')
+install.packages('installr')
+load('/Volumes/jetDrive/2019-12-06 Final Model')
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+results
+dev.new()
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+length(coef(m_single))
+cbind(1:27,coef(m_single))
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13:27)#
+#
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+n1<-1:12
+n2<-c(13:27)
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?
+n2<-c(13, 17:27)
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+summary(m_single)
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+-.487+.268
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(32,31,13)])
+plot(x,EV,type="l",col=1)
+abline(h=0,col=2)
+SE<-sqrt(vcov(m_single)[32,32]*x^4+vcov(m_single)[31,31]*x^2+vcov(m_single)[13,13]+
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_single)[17,17]*x^4+vcov(m_single)[16,16]*x^2+vcov(m_single)[13,13]+#
+2*(vcov(m_single)[17,16]*x^3+vcov(m_single)[17,13]*x^2+vcov(m_single)[16,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+x<-seq(-0.5,0.5,length=1000)
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_single)[c(17,16,13)])
+SE<-sqrt(vcov(m_single)[17,17]*x^4+vcov(m_single)[16,16]*x^2+vcov(m_single)[13,13]+
+2*(vcov(m_single)[17,16]*x^3+vcov(m_single)[17,13]*x^2+vcov(m_single)[16,13]*x))
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+results
+length(coef(m_single))#
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13, 17:27)#
+#
+est<-coef(m_single)[n1]+coef(m_single)[n2]#
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)
+length(coef(m_single))
+cbind(1:27,coef(m_single)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?
+est<-coef(m_single)[n1]+coef(m_single)[n2]
+se0<-diag(vcov(m_single))[n1]+diag(vcov(m_single))[n2]
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_single)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))
+cbind(est,se,t,p)
+summary(m_single)
+.027/(.251*2)
+load('/Volumes/jetDrive/2019-12-06 Final Modell')
+load('/Volumes/jetDrive/2019-12-06 Final Model')
+summary(m_multi2)
+load('/Volumes/jetDrive/2019-12-06 Final Model')
+## Main Model Graph ###
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)#
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af_2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af-bf2.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+978-450+1#529
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)#
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                                    Lower Rank →\n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                                    Lower Rank →\n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                                    Lower Rank →\n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                                    Lower Rank →\n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                                    Lower Rank → \n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+axis(2)
+abline(h=0,col=2)
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                              Lower Rank → \n")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                              Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                              Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                              Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)
+abline(h=0,col=2)
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                     Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                               Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →\n Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                          Lower Rank →\n            Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank      Lower Rank →\n            Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank         Lower Rank →\n               Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank              Lower Rank →\n               Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                     Lower Rank →\n               Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                          Lower Rank →\n                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                               Lower Rank →\n                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                       Lower Rank →\n                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()
+dev.off()
+dev.new()#
+ png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new()
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                            Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+axis(2)
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+abline(h=0,col=2)
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank \t\t\t                                           Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                   Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                               Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                        Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                     Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                        Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                               Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))
+axis(2)
+abline(h=0,col=2)
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)#
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+ png("multi-bf_0808.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af-bf_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1 , xlab=expression(italic("← Higher Rank                                                                                            Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.off()
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+ png("multi-bf_0808.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                       Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                       Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                     Lower Rank →\n                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ # png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ # png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                  Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ # png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                       Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ # png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ # png("multi-bf2.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+## Main Model Graph ###
+## Graph ###
+#
+length(coef(m_multi2))#
+cbind(1:41,coef(m_multi2)) ## What are "rtt2" and "game_time"? Why no interaction with udpate?#
+## Assessing significamce of "After" estimates#
+n1<-1:12#
+n2<-c(13,31:41)#
+#
+est<-coef(m_multi2)[n1]+coef(m_multi2)[n2]#
+se0<-diag(vcov(m_multi2))[n1]+diag(vcov(m_multi2))[n2]#
+for(i in 1:12){#
+se0[i]<-se0[i]+2*vcov(m_multi2)[n1[i],n2[i]]#
+print(i)#
+}#
+se<-sqrt(se0)#
+t<-est/se#
+p<-2*(1-pt(abs(t),560519))#
+#
+cbind(est,se,t,p)#
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new()#
+ png("multi-bf_0808.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+dev.new()#
+png("multi-af-bf_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+978-450+1#529
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ png("multi-bf_0808.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=10, height=5.5, unit="in")#
+png("multi-af_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=10, height=5.5, unit="in")#
+png("multi-af-bf_0808.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+978-450+1#529
+dev.off()
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=5, height=2.5, unit="in")#
+ png("multi-bf_new.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")),lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=5, height=2.5, unit="in")#
+png("multi-af_new.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=5, height=2.5, unit="in")#
+png("multi-effect_new.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("Player Rank")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+978-450+1#529
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")#
+ png("multi-bf_n.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=10, height=5.5, unit="in")#
+png("multi-af_n.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()#
+#
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=10, height=5.5, unit="in")#
+png("multi-af-bf_n.png")#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.off()
+## Social Status and Gaming Behavior 1: Before Updates#
+x<-seq(-0.5,0.5,length=1000)#
+EV0<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])#
+w0<-which.max(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%coef(m_multi2)[3:2])-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[3,3]*x^4+vcov(m_multi2)[3,2]*2*x^3+vcov(m_multi2)[2,2]*x^2+#
+vcov(m_multi2)[3,3]*x0^4+vcov(m_multi2)[3,2]*2*x0^3+vcov(m_multi2)[2,2]*x0^2-#
+2*(vcov(m_multi2)[3,3]*x^2*x0^2+vcov(m_multi2)[2,2]*x*x0+vcov(m_multi2)[3,2]*(x^2*x0+x*x0^2)))#
+ dev.new(width=10, height=5.5, unit="in")
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5),
+lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+png("multi-bf_n.png")
+dev.off()
+dev.new(width=10, height=5.5, unit="in")#
+ png("multi-bf_n.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)#
+dev.off()
+dev.off()
+dev.new(width=10, height=5.5, unit="in")#
+ png("multi-bf_n.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new(width=10, height=5.5, unit="in")#
+ png("multi-bf_n.png")#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+dev.new(width=10, height=5.5, unit="in")
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.5,-0.4,-0.3,-0.2, -0.1, 0, 0.1,0.2,0.3,0.4,0.5), lab=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0))#
+#
+axis(2)#
+abline(h=0,col=2)#
+legend("bottomright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+## Social Status and Gaming Behavior 2: After Updates#
+fuck<-coef(m_multi2)[32:31]+coef(m_multi2)[3:2]#
+EV0<-as.numeric(cbind(x^2,x)%*%fuck)#
+w0<-which.min(EV0)#
+x0<-x[w0]#
+a0<-EV0[w0]#
+EV<-as.numeric(cbind(x^2,x)%*%fuck)-a0#
+matplot(x,cbind(EV0,EV),type="l",lty=c(1,2,2),col=1)#
+abline(h=0,col=2)#
+#
+fuck_sq<-vcov(m_multi2)[3,3]+vcov(m_multi2)[32,32]+2*vcov(m_multi2)[3,32]#
+fuck_main<-vcov(m_multi2)[2,2]+vcov(m_multi2)[31,31]+2*vcov(m_multi2)[2,31]#
+fuck_cov<-vcov(m_multi2)[3,2]+vcov(m_multi2)[3,31]+vcov(m_multi2)[32,2]+vcov(m_multi2)[32,31]#
+#
+SE<-sqrt(fuck_sq*x^4+fuck_cov*2*x^3+fuck_main*x^2+#
+fuck_sq*x0^4+fuck_cov*2*x0^3+fuck_main*x0^2-#
+2*(fuck_sq*x^2*x0^2+fuck_main*x*x0+fuck_cov*(x^2*x0+x*x0^2)))#
+#
+SE[SE<0]<-0#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)
+dev.off()
+dev.new(width=10, height=5.5, unit="in")
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+## What's the Effect of the Update on Gaming Behavior? 1#
+x<-seq(-0.5,0.5,length=1000)#
+EV<-as.numeric(cbind(x^2,x,1)%*%coef(m_multi2)[c(32,31,13)])#
+plot(x,EV,type="l",col=1)#
+abline(h=0,col=2)#
+#
+SE<-sqrt(vcov(m_multi2)[32,32]*x^4+vcov(m_multi2)[31,31]*x^2+vcov(m_multi2)[13,13]+#
+2*(vcov(m_multi2)[32,31]*x^3+vcov(m_multi2)[32,13]*x^2+vcov(m_multi2)[31,13]*x))#
+#
+results<-cbind(EV,EV-1.96*SE,EV+1.96*SE)#
+ dev.new(width=10, height=5.5, unit="in")
+matplot(x,results,type="l",lty=c(1,2,2),col=1, xlab=expression(italic("← Higher Rank                                                                                                                               Lower Rank →\n                                                                             Game Ranking")), ylab=expression(italic("Expected Utility of Gameplay")), lwd=1, axes=F)#
+axis(1, at=c(-0.4, -0.2, 0, 0.2, 0.4), lab=c(0.1, 0.3, 0.5, 0.7, 0.9))#
+axis(2)#
+abline(h=0,col=2)#
+legend("topright", legend=c("Estimated Utility", "95% CI"), lty=1:2)
+dev.off()
+rm(list=ls())
+#GroupD6#
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+library(rsconnect)#
+source("buttonrows.R")#
+ui <- dashboardPage(#
+    dashboardHeader(title = "Group D6, rotational symmetries of the hexagon",#
+                    titleWidth = 500),#
+    dashboardSidebar(disable = TRUE),#
+    dashboardBody(#
+        fluidRow(#
+            column(width=4,#
+                   box(#
+                       width = NULL,#
+                       height = 450,#
+                       h3 ("Elements of the group"),#
+                       h4("The identity"),#
+                       controlRow1("ctrlI"),#
+                       h4("Order 6 elements (rotations through 60 degrees)"),#
+                       controlRow4(#
+                           c("ctrl123456", "ctrl135246", "ctrl142536")#
+                       ),   #
+                       controlRow4(#
+                           c( "ctrl153264", "ctrl165432")#
+                       ),   #
+                       h4("Order 2 elements (flips through 180 degrees)"),#
+                       controlRow3(#
+                           c("ctrl2635", "ctrl123645", "ctrl1346")#
+                       ),#
+                       controlRow3(#
+                           c("ctrl142356", "ctrl162534", "ctrl1524")#
+                       ),#
+                   ),#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Subgroups",#
+                         buttonRow3(#
+                           inputIds = c("btnC2", "btnC3", "btnC6"),#
+                           labels = list("Show C2", "ShowC3", "ShowC6"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )   #
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Cosets",#
+                         buttonRow2(#
+                           inputIds = c("btnLC", "btnRC"),#
+                           labels = list("Left Cosets", "Right Cosets"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )  #agb#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Conjugate Subgroup",#
+                         buttonRow2(#
+                           inputIds = c("btnmark", "btnconj"),#
+                           labels = list("Select a", "Generate Subgroup"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("conjmsg"))#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Generate a Subgroup",#
+                         buttonRow4(#
+                           inputIds = c("btnmarkgena", "btnmarkgenb", "btngen", "btnclear"),#
+                           labels = list("Generator a", "Generator b","Generate","Clear"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("genmsg"))#
+                       )#box#
+            ),#
+            #col#
+            column(#
+                width = 8,#
+                box(#
+                  width = NULL,#
+                  height = 380,#
+                  fluidRow(#
+                    column(#
+                      width = 8,#
+                      h3("Inputs and Products"),#
+                      htmlOutput("results"),#
+                      tags$head(tags$style("#results{color:red; font-size:20px; font-style:italic; #
+overflow-y:scroll; max-height: 300px; background: ghostwhite;}"))#
+                    ),#
+                    column(#
+                      width = 4,#
+                      actionBttn("reset", "Clear Inputs and Products")#
+                    )#
+                  )#
+                ),#
+                box(width = NULL,#
+                    height = 430,#
+                    tableOutput("multable")#
+                )#
+            )#
+        )  #fluid#
+    )  #
+)#
+source("d6calc.R")#
+source("permutecalc.R")#
+#Global variables accessible to server()#
+N <- 12#
+D6DF <- makeD6data()#
+#colors for cosets#
+color.list <- c("pink","aquamarine","beige","hotpink", "violet")#
+#Output to display in the text box#
+result.list <- ""#
+#Result of all multiplications so far#
+product <- "I"#
+subgroup <- numeric(0)#
+conjugating <- FALSE#
+generating <- 0#
+a <-"I"#
+gena <- "I"#
+genb <- "I"#
+#Computes a product as specified by "a" and "b" in vector v#
+evaluate <- function(v,a,b) {#
+  result <- "I"#
+  for (i in 1:length(v)){#
+    result <- Perm.multiply(result,ifelse(v[i]=="a",a,b))#
+  }#
+  return (result)#
+}#
+server <- function(input, output, session) {#
+  #Elements in the chosen subgroup#
+  displayButton <- function(i) {#
+    renderUI({actionButton(D6DF[i,1],D6DF[i,2],#
+                           style=paste("padding:4px;#
+                   font-size:120%;background:",D6DF[i,3]))}) #
+  }#
+  #show all the buttons#
+  showButtons <- function() {#
+    output$ctrl2635 <- displayButton(1)#
+    output$ctrl123645<- displayButton(2)                                     #
+    output$ctrl1346<- displayButton(3)#
+    output$ctrl142356<- displayButton(4)#
+    output$ctrl162534 <- displayButton(5)#
+    output$ctrl1524<- displayButton(6)                                     #
+    output$ctrl165432<- displayButton(7)#
+    output$ctrl153264<- displayButton(8)#
+    output$ctrl142536 <- displayButton(9)#
+    output$ctrl135246<- displayButton(10)                                     #
+    output$ctrl123456<- displayButton(11)#
+    output$ctrlI<- displayButton(12)#
+  }#
+  showButtons()#
+  #Display the multiplication table#
+  tbl <- outer(D6DF[,2],D6DF[,2],Vectorize(Perm.multiply,c("a","b")))#
+  colnames(tbl) <- D6DF[,2]#
+  rownames(tbl) <- D6DF[,2] #
+  output$multable <- renderTable(tbl,rownames = TRUE)#
+#Multiplies by a specified permutation and displays all calculations so far#
+    compute.and.show <- function(perm){#
+      if (conjugating) {#
+        a <<- perm#
+        output$conjmsg <- renderUI(paste0("Conjugating by element ",perm,collapse=""))#
+        conjugating <<- FALSE#
+        return()#
+      }#
+      if (generating==1) {#
+        gena <<- perm#
+        output$genmsg <- renderUI(paste0("Generating with element ",gena,collapse=""))#
+        return()#
+      }#
+      if (generating==2) {#
+        genb <<- perm#
+        output$genmsg <- #
+          renderUI(paste0("Generating with elements ",gena," and ", genb,collapse=""))#
+        return()#
+      }#
+      product <<- Perm.multiply(perm,product)#
+      line.out <- paste(perm,product,sep = "&emsp;")#
+      result.list <<- paste(result.list, line.out, "<br/>")#
+      output$results<-renderUI(HTML(result.list))#
+    }#
+    #Marks all elements in a subgroup with a color#
+    mark.subgroup <- function() {#
+      for (i in 1:N){#
+        D6DF$color[i] <<- ifelse(i  %in% subgroup,"yellow","gray90")#
+      }#
+    }#
+#Event handlers for all the element buttons #
+    observeEvent(input$btnI,{#
+      compute.and.show("I")#
+    })#
+    observeEvent(input$btn2635,{#
+       compute.and.show("(26)(35)")#
+    })#
+    observeEvent(input$btn123645,{#
+      compute.and.show("(12)(36)(45)")#
+    })#
+    observeEvent(input$btn1346,{#
+      compute.and.show("(13)(46)")#
+    })#
+    observeEvent(input$btn142356,{#
+      compute.and.show("(14)(23)(56)")#
+    })#
+    observeEvent(input$btn162534,{#
+      compute.and.show("(16)(25)(34)")#
+    })#
+    observeEvent(input$btn1524,{#
+      compute.and.show("(15)(24)")#
+    })#
+    observeEvent(input$btn165432,{#
+      compute.and.show("(165432)")#
+    })#
+    observeEvent(input$btn153264,{#
+      compute.and.show("(153)(264)")#
+    })#
+    observeEvent(input$btn142536,{#
+        compute.and.show("(14)(25)(36)")#
+    })#
+    observeEvent(input$btn135246,{#
+      compute.and.show("(135)(246)")#
+    })#
+    observeEvent(input$btn123456,{#
+      compute.and.show("(123456)")#
+    })#
+#The reset button clears the output and reinitializes the product#
+    observeEvent(input$reset,{#
+        result.list <<- ""#
+        product <<- "I"#
+        output$results<-renderUI(HTML(result.list))#
+    })#
+#Event handlers for the subgroup buttons#
+    observeEvent(input$btnC2,{#
+      subgroup <<- c(1,9, 12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC3,{#
+      subgroup <<- c(8,10,12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC6,{#
+      subgroup <<- c(7:12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    #Event handler for left cosets#
+    observeEvent(input$btnLC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[in.coset,2],D6DF[j,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    #Right cosets work the same way#
+    observeEvent(input$btnRC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[j,2],D6DF[in.coset,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    observeEvent(input$btnmark,{#
+      conjugating <<- TRUE#
+      output$conjmsg <- renderUI("Click the button for the desired element a")#
+    })#
+    observeEvent(input$btnmarkgena,{#
+      generating <<- 1#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator a")#
+    })#
+    observeEvent(input$btnmarkgenb,{#
+      generating <<- 2#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator b")#
+    })#
+    #Generate random sequences of generators.#
+    #If we generate more than half the group, it's the entire group#
+    #This algorithm could turn out to be inefficient,and in principle it can fail#
+    observeEvent(input$btngen,{#
+      subgroup <<- numeric(0)#
+      for (j in 1:(4*N)) {#
+        v <- sample(c("a","b"),sample(7:10,1),replace = TRUE)#
+        element <- evaluate(v,gena,genb)#
+        k <- which(D6DF[,2] == element)[1]#
+        if(!(k %in% subgroup)){#
+          subgroup <<- c(subgroup,k)#
+          D6DF[k,3] <<- "yellow"#
+        }#
+        #If subgroup has more than N/2 elements, it's the entire group#
+        if (length(subgroup) > N/2){#
+          subgroup <<- 1:N#
+          break#
+        } #
+      }  #
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- #
+        renderUI(paste0("The subgroup generated by ",gena," and ", genb," is now yellow"))#
+    })#
+    observeEvent(input$btnclear,{#
+      subgroup <<- rep(FALSE,N)#
+      generating <<- 0#
+      gena <<- "I"#
+      genb <<- "I"#
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- renderUI("")#
+    })#
+    observeEvent(input$btnconj,{#
+      aInv <- Perm.inverse(a)#
+      D6DF[,3] <<- rep("gray90",N)#
+      for (j in 1:N) {#
+        if (j %in% subgroup){#
+          element <- Perm.conjugate(a,D6DF[j,2])#
+          k <- which(D6DF[,2] == element)[1]#
+          D6DF[k,3] <<- "pink"#
+        }#
+      }  #
+      showButtons()#
+      output$conjmsg <- renderUI(paste0("The subgroup ",a,"H",aInv," is now pink"))#
+    })}#
+# Run the application #
+shinyApp(ui = ui, server = server)#
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK') #
+deployApp()
+rm(list=ls())
+library(shiny)#
+library(shinydashboard)#
+library(shinyWidgets)#
+library(rsconnect)
+source("buttonrows.R")
+setwd("/Users/hyeongjihyeon/OneDrive - nyu.edu/Dashboard/A4Calc")
+source("buttonrows.R")
+ui <- dashboardPage(#
+    dashboardHeader(title = "Group D6, rotational symmetries of the hexagon",#
+                    titleWidth = 500),#
+    dashboardSidebar(disable = TRUE),#
+    dashboardBody(#
+        fluidRow(#
+            column(width=4,#
+                   box(#
+                       width = NULL,#
+                       height = 450,#
+                       h3 ("Elements of the group"),#
+                       h4("The identity"),#
+                       controlRow1("ctrlI"),#
+                       h4("Order 6 elements (rotations through 60 degrees)"),#
+                       controlRow4(#
+                           c("ctrl123456", "ctrl135246", "ctrl142536")#
+                       ),   #
+                       controlRow4(#
+                           c( "ctrl153264", "ctrl165432")#
+                       ),   #
+                       h4("Order 2 elements (flips through 180 degrees)"),#
+                       controlRow3(#
+                           c("ctrl2635", "ctrl123645", "ctrl1346")#
+                       ),#
+                       controlRow3(#
+                           c("ctrl142356", "ctrl162534", "ctrl1524")#
+                       ),#
+                   ),#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Subgroups",#
+                         buttonRow3(#
+                           inputIds = c("btnC2", "btnC3", "btnC6"),#
+                           labels = list("Show C2", "ShowC3", "ShowC6"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )   #
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 100,#
+                         title = "Cosets",#
+                         buttonRow2(#
+                           inputIds = c("btnLC", "btnRC"),#
+                           labels = list("Left Cosets", "Right Cosets"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         )  #agb#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Conjugate Subgroup",#
+                         buttonRow2(#
+                           inputIds = c("btnmark", "btnconj"),#
+                           labels = list("Select a", "Generate Subgroup"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("conjmsg"))#
+                       ),#box#
+                       box(#
+                         width = NULL,#
+                         height = 120,#
+                         title = "Generate a Subgroup",#
+                         buttonRow4(#
+                           inputIds = c("btnmarkgena", "btnmarkgenb", "btngen", "btnclear"),#
+                           labels = list("Generator a", "Generator b","Generate","Clear"),#
+                           btnStyle = "padding:4px;font-size:120%"#
+                         ),  #
+                         h4(uiOutput("genmsg"))#
+                       )#box#
+            ),#
+            #col#
+            column(#
+                width = 8,#
+                box(#
+                  width = NULL,#
+                  height = 380,#
+                  fluidRow(#
+                    column(#
+                      width = 8,#
+                      h3("Inputs and Products"),#
+                      htmlOutput("results"),#
+                      tags$head(tags$style("#results{color:red; font-size:20px; font-style:italic; #
+overflow-y:scroll; max-height: 300px; background: ghostwhite;}"))#
+                    ),#
+                    column(#
+                      width = 4,#
+                      actionBttn("reset", "Clear Inputs and Products")#
+                    )#
+                  )#
+                ),#
+                box(width = NULL,#
+                    height = 430,#
+                    tableOutput("multable")#
+                )#
+            )#
+        )  #fluid#
+    )  #
+)#
+source("d6calc.R")#
+source("permutecalc.R")#
+#Global variables accessible to server()#
+N <- 12#
+D6DF <- makeD6data()#
+#colors for cosets#
+color.list <- c("pink","aquamarine","beige","hotpink", "violet")#
+#Output to display in the text box#
+result.list <- ""#
+#Result of all multiplications so far#
+product <- "I"#
+subgroup <- numeric(0)#
+conjugating <- FALSE#
+generating <- 0#
+a <-"I"#
+gena <- "I"#
+genb <- "I"#
+#Computes a product as specified by "a" and "b" in vector v#
+evaluate <- function(v,a,b) {#
+  result <- "I"#
+  for (i in 1:length(v)){#
+    result <- Perm.multiply(result,ifelse(v[i]=="a",a,b))#
+  }#
+  return (result)#
+}#
+server <- function(input, output, session) {#
+  #Elements in the chosen subgroup#
+  displayButton <- function(i) {#
+    renderUI({actionButton(D6DF[i,1],D6DF[i,2],#
+                           style=paste("padding:4px;#
+                   font-size:120%;background:",D6DF[i,3]))}) #
+  }#
+  #show all the buttons#
+  showButtons <- function() {#
+    output$ctrl2635 <- displayButton(1)#
+    output$ctrl123645<- displayButton(2)                                     #
+    output$ctrl1346<- displayButton(3)#
+    output$ctrl142356<- displayButton(4)#
+    output$ctrl162534 <- displayButton(5)#
+    output$ctrl1524<- displayButton(6)                                     #
+    output$ctrl165432<- displayButton(7)#
+    output$ctrl153264<- displayButton(8)#
+    output$ctrl142536 <- displayButton(9)#
+    output$ctrl135246<- displayButton(10)                                     #
+    output$ctrl123456<- displayButton(11)#
+    output$ctrlI<- displayButton(12)#
+  }#
+  showButtons()#
+  #Display the multiplication table#
+  tbl <- outer(D6DF[,2],D6DF[,2],Vectorize(Perm.multiply,c("a","b")))#
+  colnames(tbl) <- D6DF[,2]#
+  rownames(tbl) <- D6DF[,2] #
+  output$multable <- renderTable(tbl,rownames = TRUE)#
+#Multiplies by a specified permutation and displays all calculations so far#
+    compute.and.show <- function(perm){#
+      if (conjugating) {#
+        a <<- perm#
+        output$conjmsg <- renderUI(paste0("Conjugating by element ",perm,collapse=""))#
+        conjugating <<- FALSE#
+        return()#
+      }#
+      if (generating==1) {#
+        gena <<- perm#
+        output$genmsg <- renderUI(paste0("Generating with element ",gena,collapse=""))#
+        return()#
+      }#
+      if (generating==2) {#
+        genb <<- perm#
+        output$genmsg <- #
+          renderUI(paste0("Generating with elements ",gena," and ", genb,collapse=""))#
+        return()#
+      }#
+      product <<- Perm.multiply(perm,product)#
+      line.out <- paste(perm,product,sep = "&emsp;")#
+      result.list <<- paste(result.list, line.out, "<br/>")#
+      output$results<-renderUI(HTML(result.list))#
+    }#
+    #Marks all elements in a subgroup with a color#
+    mark.subgroup <- function() {#
+      for (i in 1:N){#
+        D6DF$color[i] <<- ifelse(i  %in% subgroup,"yellow","gray90")#
+      }#
+    }#
+#Event handlers for all the element buttons #
+    observeEvent(input$btnI,{#
+      compute.and.show("I")#
+    })#
+    observeEvent(input$btn2635,{#
+       compute.and.show("(26)(35)")#
+    })#
+    observeEvent(input$btn123645,{#
+      compute.and.show("(12)(36)(45)")#
+    })#
+    observeEvent(input$btn1346,{#
+      compute.and.show("(13)(46)")#
+    })#
+    observeEvent(input$btn142356,{#
+      compute.and.show("(14)(23)(56)")#
+    })#
+    observeEvent(input$btn162534,{#
+      compute.and.show("(16)(25)(34)")#
+    })#
+    observeEvent(input$btn1524,{#
+      compute.and.show("(15)(24)")#
+    })#
+    observeEvent(input$btn165432,{#
+      compute.and.show("(165432)")#
+    })#
+    observeEvent(input$btn153264,{#
+      compute.and.show("(153)(264)")#
+    })#
+    observeEvent(input$btn142536,{#
+        compute.and.show("(14)(25)(36)")#
+    })#
+    observeEvent(input$btn135246,{#
+      compute.and.show("(135)(246)")#
+    })#
+    observeEvent(input$btn123456,{#
+      compute.and.show("(123456)")#
+    })#
+#The reset button clears the output and reinitializes the product#
+    observeEvent(input$reset,{#
+        result.list <<- ""#
+        product <<- "I"#
+        output$results<-renderUI(HTML(result.list))#
+    })#
+#Event handlers for the subgroup buttons#
+    observeEvent(input$btnC2,{#
+      subgroup <<- c(1,9, 12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC3,{#
+      subgroup <<- c(8,10,12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    observeEvent(input$btnC6,{#
+      subgroup <<- c(7:12)#
+      mark.subgroup()#
+      showButtons()#
+    })#
+    #Event handler for left cosets#
+    observeEvent(input$btnLC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[in.coset,2],D6DF[j,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    #Right cosets work the same way#
+    observeEvent(input$btnRC,{#
+      mark.subgroup()#
+      idx = 1   #index into the color list -- one for each coset#
+      #Keep creating cosets as long as there are elements that are still gray#
+      while(length(which(D6DF$color == "gray90") >0)){#
+        #Find the first unassigned group element#
+        in.coset <- which(D6DF$color == "gray90")[1]#
+        #Generate its left coset and put a new color on the buttons#
+        for (j in 1:N) {#
+          if(j %in% subgroup) {#
+            element <- Perm.multiply(D6DF[j,2],D6DF[in.coset,2])#
+            k <- which(D6DF[,2] == element)#
+            D6DF[k,3] <<- color.list[idx]#
+          }#
+        }#
+        idx <- idx + 1#
+      }#
+      showButtons()#
+    })#
+    observeEvent(input$btnmark,{#
+      conjugating <<- TRUE#
+      output$conjmsg <- renderUI("Click the button for the desired element a")#
+    })#
+    observeEvent(input$btnmarkgena,{#
+      generating <<- 1#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator a")#
+    })#
+    observeEvent(input$btnmarkgenb,{#
+      generating <<- 2#
+      D6DF[,3] <<- rep("gray90",N)#
+      showButtons()#
+      output$genmsg <- renderUI("Click the button for generator b")#
+    })#
+    #Generate random sequences of generators.#
+    #If we generate more than half the group, it's the entire group#
+    #This algorithm could turn out to be inefficient,and in principle it can fail#
+    observeEvent(input$btngen,{#
+      subgroup <<- numeric(0)#
+      for (j in 1:(4*N)) {#
+        v <- sample(c("a","b"),sample(7:10,1),replace = TRUE)#
+        element <- evaluate(v,gena,genb)#
+        k <- which(D6DF[,2] == element)[1]#
+        if(!(k %in% subgroup)){#
+          subgroup <<- c(subgroup,k)#
+          D6DF[k,3] <<- "yellow"#
+        }#
+        #If subgroup has more than N/2 elements, it's the entire group#
+        if (length(subgroup) > N/2){#
+          subgroup <<- 1:N#
+          break#
+        } #
+      }  #
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- #
+        renderUI(paste0("The subgroup generated by ",gena," and ", genb," is now yellow"))#
+    })#
+    observeEvent(input$btnclear,{#
+      subgroup <<- rep(FALSE,N)#
+      generating <<- 0#
+      gena <<- "I"#
+      genb <<- "I"#
+      mark.subgroup()#
+      showButtons()#
+      output$genmsg <- renderUI("")#
+    })#
+    observeEvent(input$btnconj,{#
+      aInv <- Perm.inverse(a)#
+      D6DF[,3] <<- rep("gray90",N)#
+      for (j in 1:N) {#
+        if (j %in% subgroup){#
+          element <- Perm.conjugate(a,D6DF[j,2])#
+          k <- which(D6DF[,2] == element)[1]#
+          D6DF[k,3] <<- "pink"#
+        }#
+      }  #
+      showButtons()#
+      output$conjmsg <- renderUI(paste0("The subgroup ",a,"H",aInv," is now pink"))#
+    })}
+shinyApp(ui = ui, server = server)
+rsconnect::setAccountInfo(name='jihyeonhyeong', token='0C17F16C75FCAEB7B057D9E361586951', secret='+okLcveFtZbVAZeHoOW9/3ZSmijsHoDyUjPRnqyK')
+deployApp()
+rm(list=ls())
+(60/82)*55
+(64/82)*55
+(68/82)*55
+(66/82)*55
+(66+30)/(82+30)*55
+(66+30)/(82+30)*55
+(66+30)/(82+30)*55
+(47+40+20+30+70)/(55+50+20+30+78)
+(47+40+20+30+60)/(55+50+20+30+78)
+(47+40+20+30+60)/(55+50+20+30+78)
+62+63+64+65
+62+63+64+65
