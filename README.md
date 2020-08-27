@@ -16,5 +16,5 @@ I believe that you can find my knowledge and experience on statistical analysis 
 Note that all these codes were written before I learned cs courses, so it may seem a little bit of brute force (e.g., overuse of for loop or inefficient and dirty codes). <br>
 
 
-Thanks :)
+Thank you :)
 
