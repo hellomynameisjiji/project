@@ -13,7 +13,7 @@ The repository 'Python' contains my solutions to assignments of the courses INTR
 The repository 'R' contains my works on models in Econometrics and Bayesian statistics. <br> 
 I also put some codes that I worked on to clean a dataset so that you can see what type of projects I've done in the past. <br>
 I believe that you can find my knowledge and experience on statistical analysis and data processing. <br>
-However, note that all these codes were written before I learned cs courses, so it may seem a little bit of brute force (e.g., overuse of for loop or inefficient and dirty codes). <br>
+Note that all these codes were written before I learned cs courses, so it may seem a little bit of brute force (e.g., overuse of for loop or inefficient and dirty codes). <br>
 
 
 Thanks :)
