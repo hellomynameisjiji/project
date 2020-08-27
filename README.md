@@ -4,7 +4,7 @@ This repository contains my works that I've implemented so far. <br>
 Based on which programming language I used, I arranged my works in three-fold - 1) Java, 2) Python, 3) R. <br>
 
 # Java
-The repository 'Java' contains my solutions to assignments of the courses CS101 (INTRO TO CS), CS102 (DATA STRUCTURE). <br> I am happy to share my solutions as I really enjoyed learning OOP, which allowed me to change my perspective and approach to programming. <br>
+The repository 'Java' contains my solutions to assignments of the courses CS101 (INTRO TO CS), CS102 (DATA STRUCTURE). I am happy to share my solutions as I really enjoyed learning OOP, which allowed me to change my perspective and approach to programming. <br>
 
 # Python
 The repository 'Python' contains my solutions to assignments of the courses INTRO TO ML, CS231n. <br> I implemented various models from SVM to GANs using scikit-learn, PyTorch, and Tensorflow. Both courses provided skeletons of how to implement models. <br>
